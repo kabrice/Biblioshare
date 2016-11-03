@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<!-- ICI on va référencer tous les beans (dao et services) qui sont dans 
+		notre projet ainsi que leur dependeces -->
+
+	<!-- Classe utilisateur service et dao -->
+
+	<bean id="utilisateurDao" class="com.projet.biblioshare.dao.UtilisateurDaoImp">
+	</bean>
+	<bean id="utilisateurService" class="com.projet.biblioshare.service.UtilisateurServiceImp">
+		<property name="utilisateurDao" ref="utilisateurDao"></property>
+	</bean>
+
+	<!-- Classe Livre service et dao -->
+	<bean id="livreDao" class="com.projet.biblioshare.dao.LivreDaoImp"></bean>
+	<bean id="livreService" class="com.projet.biblioshare.service.LivreServiceImp">
+		<property name="livreDao" ref="livreDao"></property>
+	</bean>
+	
+	<!-- Classe Auteur service et dao -->
+	<bean id="auteurDao" class="com.projet.biblioshare.dao.AuteurDaoImp"></bean>
+	<bean id="auteurService" class="com.projet.biblioshare.service.AuteurServiceImp">
+		<property name="auteurDao" ref="auteurDao"></property>
+	</bean>
+	
+	<!-- Classe collection service et dao -->
+	<bean id="collectionDao" class="com.projet.biblioshare.dao.CollectionDaoImp"></bean>
+	<bean id="collectionService" class="com.projet.biblioshare.service.CollectionServiceImp">
+		<property name="collectionDao" ref="collectionDao"></property>
+	</bean>
+
+	<!-- Classe editeur service et dao -->
+	<bean id="editeurDao" class="com.projet.biblioshare.dao.EditeurDaoImp"></bean>
+	<bean id="editeurService" class="com.projet.biblioshare.service.EditeurServiceImp">
+		<property name="editeurDao" ref="editeurDao"></property>
+	</bean>
+	
+	<!-- Classe categorie service et dao -->
+	<bean id="categorieDao" class="com.projet.biblioshare.dao.CategorieDaoImp"></bean>
+	<bean id="categorieService" class="com.projet.biblioshare.service.CategorieServiceImp">
+		<property name="categorieDao" ref="categorieDao"></property>
+	</bean>
+	
+
+	<!-- Datasource -->
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://localhost:3306/biblioshare">
+		</property>
+		<property name="username" value="biblioshare"></property>
+		<property name="password" value="biblioshare"></property>
+	</bean>
+
+	<!-- Persistence manate pour l'entity manager -->
+	<bean id="persistenceUnitManager"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath*:META-INF/persistence.xml</value>
+			</list>
+		</property>
+		<property name="defaultDataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- l'entity manager Factory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitManager" ref="persistenceUnitManager">
+		</property>
+		<property name="persistenceUnitName" value="MYPU"></property>
+	</bean>
+
+	<!-- transaction manager pour les transaction ie oppération de la couche 
+		metier (service) -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory">
+		</property>
+	</bean>
+
+
+
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:validation</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- pour dire que l'entiti manager est basé sur des annotation -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<context:annotation-config></context:annotation-config>
+
+</beans>
