@@ -69,4 +69,10 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 
 	}
 
+	@Override
+	public Utilisateur searchUserByPseudo(String pseudo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
