@@ -14,6 +14,7 @@
 		<tr><td><a href="${pageContext.request.contextPath }/login">Login</a></td></tr>
 		<tr><td><a href="${pageContext.request.contextPath }/creercategorie">Creer Categorie</a></td></tr>
 		<tr><td><a href="${pageContext.request.contextPath }/bookshare">Bookshare</a></td></tr>
+		<tr><td><a href="${pageContext.request.contextPath }/userProfile">UserProfile</a></td></tr>
 	</table>
 
 </body>

@@ -127,7 +127,7 @@ public class BiblioshareController {
 
 	}
 	
-	// en cas de success de connection
+	// affichier userProfile
 	@RequestMapping(value = "/userProfile", method = RequestMethod.GET)
 	public String showUserProfile() {
 		
