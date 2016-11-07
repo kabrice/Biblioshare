@@ -9,6 +9,7 @@ public interface IUtilisateurService {
 	public void addUser(Utilisateur u);
 	public void removeUser(int id);
 	public void saveUser(Utilisateur u);
+	public Utilisateur SearchUserByPseudo ( String pseudo);
 	public Utilisateur loginUser(Utilisateur u);
 
 }

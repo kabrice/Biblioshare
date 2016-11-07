@@ -7,24 +7,20 @@ import org.springframework.transaction.annotation.Transactional;
 import com.projet.biblioshare.dao.IUtilisateurDao;
 import com.projet.biblioshare.entity.Utilisateur;
 
-
 @Transactional
-public class UtilisateurServiceImp implements IUtilisateurService{
-	
+public class UtilisateurServiceImp implements IUtilisateurService {
+
 	private IUtilisateurDao utilisateurDao;
-	
-	
+
 	public void setUtilisateurDao(IUtilisateurDao utilisateurDao) {
 		this.utilisateurDao = utilisateurDao;
 	}
-	
 
 	@Override
 	public void addUser(Utilisateur u) {
 		// TODO Auto-generated method stub
 		utilisateurDao.addUser(u);
 	}
-
 
 	@Override
 	public List<Utilisateur> listUser() {
@@ -38,19 +34,26 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		utilisateurDao.removeUser(id);
 	}
 
-
 	@Override
 	public void saveUser(Utilisateur u) {
 		// TODO Auto-generated method stub
 		utilisateurDao.saveUser(u);
 	}
 
-
 	@Override
 	public Utilisateur loginUser(Utilisateur u) {
 		// TODO Auto-generated method stub
 		return utilisateurDao.loginUser(u);
 	}
-	
+
+	@Override
+
+	public Utilisateur SearchUserByPseudo(String pseudo) {
+		Utilisateur user = new Utilisateur();
+		if (pseudo != null) {
+			user = utilisateurDao.searchUserByPseudo(pseudo);
+		}
+		return user;
+	}
 
 }

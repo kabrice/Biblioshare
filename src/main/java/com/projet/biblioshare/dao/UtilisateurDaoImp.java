@@ -1,13 +1,15 @@
 package com.projet.biblioshare.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import com.projet.biblioshare.entity.Utilisateur;
+import org.apache.commons.collections.FastArrayList;
 
+import com.projet.biblioshare.entity.Utilisateur;
 
 public class UtilisateurDaoImp implements IUtilisateurDao {
 	@PersistenceContext
@@ -50,19 +52,21 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 	@Override
 	public Utilisateur loginUser(Utilisateur u) {
 		// TODO Auto-generated method stub
-		//System.out.println(u.getUsername()+" "+u.getPassword());
+		// System.out.println(u.getUsername()+" "+u.getPassword());
 
 		try {
-			//String select = "SELECT u FROM com.projet.biblioshare.entity.Utilisateur u WHERE u.username=:user and u.password=:pass";
-			Query query = em.createQuery( "SELECT u FROM Utilisateur u WHERE u.username=:user and u.password=:pass");
+			// String select = "SELECT u FROM
+			// com.projet.biblioshare.entity.Utilisateur u WHERE
+			// u.username=:user and u.password=:pass";
+			Query query = em.createQuery("SELECT u FROM Utilisateur u WHERE u.username=:user and u.password=:pass");
 
 			query.setParameter("user", u.getUsername());
 			query.setParameter("pass", u.getPassword());
-			u=(Utilisateur)query.getSingleResult();
-			
+			u = (Utilisateur) query.getSingleResult();
+
 		} catch (Exception e) {
 			return null;
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 
 		return u;
@@ -70,9 +74,36 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 	}
 
 	@Override
+	/**
+	 * @author lilian Methode permet de recherche un utilisateur par son pseudo
+	 *         Retourn un objet utilisateur.
+	 */
 	public Utilisateur searchUserByPseudo(String pseudo) {
-		// TODO Auto-generated method stub
-		return null;
+		Utilisateur user = new Utilisateur();
+		try {
+			Query req = em.createQuery("SELECT u FROM Utilisateur u WHERE username=pseudo");
+			req.setParameter("pseudo", pseudo);
+			user = (Utilisateur) req.getSingleResult();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+	public List<Utilisateur> SearchAutoComplePseudo(String pseudo) {
+		ArrayList<Utilisateur> listUsers = new FastArrayList();
+
+		try {
+			Query req = em.createQuery("SELECT u FROM Utilisateur u WHERE username LIKE pseudo");
+			req.setParameter("pseudo", pseudo + "%");
+
+			listUsers = (ArrayList<Utilisateur>) req.getResultList();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listUsers;
 	}
 
 }

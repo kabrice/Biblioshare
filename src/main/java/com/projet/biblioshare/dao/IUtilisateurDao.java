@@ -10,6 +10,7 @@ public interface IUtilisateurDao {
 	public void saveUser(Utilisateur u);
 	public Utilisateur loginUser(Utilisateur u);
 	public Utilisateur searchUserByPseudo (String pseudo);
+	public List<Utilisateur> SearchAutoComplePseudo (String pseudo);
 	public void removeUser(int id);
 
 }
