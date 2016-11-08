@@ -22,6 +22,11 @@ import com.projet.biblioshare.service.IUtilisateurService;
 import com.projet.biblioshare.validation.CategorieValidation;
 import com.projet.biblioshare.validation.UtilisateurValidation;
 
+
+
+
+
+
 @Controller
 public class BiblioshareController {
 	// champs
