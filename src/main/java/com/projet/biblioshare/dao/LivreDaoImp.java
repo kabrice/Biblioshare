@@ -13,10 +13,11 @@ public class LivreDaoImp implements ILivreDao {
 	@PersistenceContext
 	private EntityManager em;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Livre> listerLivre() {
 
-		Query req = em.createQuery("select distinct  l from Livre l");
+		Query req = em.createQuery("select   l from Livre l");
 		return req.getResultList();
 	}
 
@@ -25,6 +26,14 @@ public class LivreDaoImp implements ILivreDao {
 		// TODO Auto-generated method stub
 		em.persist(l);
 		em.flush();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Livre> listerNouveauLivre() {
+		
+		Query req = em.createQuery("select   l from Livre l");	
+		return req.getResultList();
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,6 +44,10 @@ public class Utilisateur {
 	@Column(name="Password")
 	private String password;
 	
+	@NotEmpty(message="le mot de passe ne doit pas etre vide")
+	@Column(name="PasswordConfirm")
+	private String passwordConfirm;
+	
 
 	@NotEmpty
 	@Length(max=10,message="mininum 5 lettre maximun 10",min=5)
@@ -59,7 +64,7 @@ public class Utilisateur {
 	}
 
 	
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinTable(name="Livre_Utilisateur",joinColumns={@JoinColumn(name="IdUser")},inverseJoinColumns={@JoinColumn(name="IdLivre")})
 	private Set<Livre> livres;
 	
@@ -116,6 +121,12 @@ public class Utilisateur {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
 	}
 
 	

@@ -9,4 +9,5 @@ public interface ILivreService {
 
 	public List<Livre> listerLivre();
 	public void creeLivre(Livre l);
+	public List<Livre> listerNouveauLivre();
 }

@@ -29,4 +29,11 @@ public class LivreServiceImp implements ILivreService {
 		livreDao.creeLivre(l);
 	}
 
+
+	@Override
+	public List<Livre> listerNouveauLivre() {
+		// TODO Auto-generated method stub
+		return livreDao.listerNouveauLivre();
+	}
+
 }

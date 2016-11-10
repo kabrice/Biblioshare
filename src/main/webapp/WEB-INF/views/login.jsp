@@ -103,7 +103,11 @@
 							<c:url var="loginUrl" value="/login" />
 							<f:form modelAttribute="userData" action="register" method="post"
 								class="form-horizontal">
-
+									<c:if test="${var_username != null}">
+									<div class="alert alert-danger">
+										<p>Invalid username deja utilisé.</p>
+									</div>
+								</c:if>
 								<div class="input-group input-sm">
 									<label class="input-group-addon" for="username"><i
 										class="fa fa-user"></i></label>
@@ -145,6 +149,14 @@
 									<f:input type="password" class="form-control" id="password"
 										path="password" placeholder="Enter Password" />
 									<f:errors path="password" cssStyle="color:red;" />	
+								</div>
+								
+								<div class="input-group input-sm">
+									<label class="input-group-addon" for="passwordConfirm"><i
+										class="fa fa-lock"></i></label>
+									<f:input type="password" class="form-control" id="passwordConfirm"
+										path="passwordConfirm" placeholder="Enter Password Confirm" />
+									<f:errors path="passwordConfirm" cssStyle="color:red;" />	
 								</div>
 
 								<div class="form-actions">

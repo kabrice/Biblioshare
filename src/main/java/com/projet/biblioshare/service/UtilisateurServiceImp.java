@@ -5,22 +5,27 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.projet.biblioshare.dao.IUtilisateurDao;
+import com.projet.biblioshare.entity.Livre;
 import com.projet.biblioshare.entity.Utilisateur;
 
+
 @Transactional
-public class UtilisateurServiceImp implements IUtilisateurService {
-
+public class UtilisateurServiceImp implements IUtilisateurService{
+	
 	private IUtilisateurDao utilisateurDao;
-
+	
+	
 	public void setUtilisateurDao(IUtilisateurDao utilisateurDao) {
 		this.utilisateurDao = utilisateurDao;
 	}
+	
 
 	@Override
 	public void addUser(Utilisateur u) {
 		// TODO Auto-generated method stub
-		utilisateurDao.addUser(u);
+		 utilisateurDao.addUser(u);
 	}
+
 
 	@Override
 	public List<Utilisateur> listUser() {
@@ -34,11 +39,13 @@ public class UtilisateurServiceImp implements IUtilisateurService {
 		utilisateurDao.removeUser(id);
 	}
 
+
 	@Override
 	public void saveUser(Utilisateur u) {
 		// TODO Auto-generated method stub
 		utilisateurDao.saveUser(u);
 	}
+
 
 	@Override
 	public Utilisateur loginUser(Utilisateur u) {
@@ -46,14 +53,40 @@ public class UtilisateurServiceImp implements IUtilisateurService {
 		return utilisateurDao.loginUser(u);
 	}
 
-	@Override
 
-	public Utilisateur SearchUserByPseudo(String pseudo) {
-		Utilisateur user = new Utilisateur();
-		if (pseudo != null) {
-			user = utilisateurDao.searchUserByPseudo(pseudo);
-		}
-		return user;
+	@Override
+	public int checkUserName(Utilisateur u) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.checkUserName(u);
 	}
+
+
+	@Override
+	public void telechargerLivre(Utilisateur utilisateur, int idLivre) {
+		// TODO Auto-generated method stub
+		utilisateurDao.telechargerLivre(utilisateur, idLivre);
+	}
+
+
+	@Override
+	public int dejaTelechargerLivre(Utilisateur utilisateur, int idLivre) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.dejaTelechargerLivre(utilisateur, idLivre);
+	}
+
+
+	@Override
+	public List<Livre> afficherLivreUser(Utilisateur utilisateur) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.afficherLivreUser(utilisateur);
+	}
+
+
+	@Override
+	public int CountNbLivresUsers(Utilisateur utilisateur) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.CountNbLivresUsers(utilisateur);
+	}
+	
 
 }

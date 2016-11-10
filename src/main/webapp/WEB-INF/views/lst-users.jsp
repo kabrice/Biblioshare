@@ -15,7 +15,7 @@
 <body>
 
 <br>
-<h3>Persons List</h3>
+<h3>Liste des utilisateurs</h3>
 <c:if test="${!empty listeUser}">
 	<table class="tg">
 	<tr>

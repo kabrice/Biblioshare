@@ -54,10 +54,10 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver">
 		</property>
-		<property name="url" value="jdbc:mysql://172.18.104.46:3306/biblioshare?useUnicode=yes&amp;characterEncoding=UTF-8">
+		<property name="url" value="jdbc:mysql://localhost:3306/biblioshare">
 		</property>
-		<property name="username" value="bibliouser"></property>
-		<property name="password" value="1234"></property>
+		<property name="username" value="biblioshare"></property>
+		<property name="password" value="biblioshare"></property>
 	</bean>
 
 	<!-- Persistence manate pour l'entity manager -->

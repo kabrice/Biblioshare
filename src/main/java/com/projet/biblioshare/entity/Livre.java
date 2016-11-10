@@ -34,10 +34,14 @@ public class Livre {
 	private String libelle;
 	
 	@NotEmpty
+	@Column(name = "image")
+	private String image;
+	
+	@NotEmpty
 	@Column(name = "DateSortie")
 	private Date dateSortie;
 	
-	@ManyToMany(cascade=CascadeType.ALL,mappedBy="livres")
+	@ManyToMany(mappedBy="livres")
 	private Set<Utilisateur> utilisateur;
 	
 	@ManyToOne
@@ -109,7 +113,26 @@ public class Livre {
 	public void setCollection(Collection collection) {
 		this.collection = collection;
 	}
+	
+	
+	
 	//constructeur avec et sans parametre
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
 
 	public Livre(String description, String libelle, Date dateSortie) {
 		super();

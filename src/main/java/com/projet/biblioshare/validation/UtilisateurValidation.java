@@ -5,7 +5,7 @@ import org.springframework.validation.Validator;
 
 import com.projet.biblioshare.entity.Utilisateur;
 
-public class UtilisateurValidation implements Validator{
+public class UtilisateurValidation implements Validator {
 
 	@Override
 	public boolean supports(Class<?> arg0) {
@@ -15,7 +15,13 @@ public class UtilisateurValidation implements Validator{
 
 	@Override
 	public void validate(Object arg0, Errors arg1) {
-		// TODO Auto-generated method stub
+		
+//		
+//			Utilisateur user=(Utilisateur) arg0;
+//			if(!(user.getPassword().equals(user.getPasswordConfirm()))){
+//			arg1.rejectValue("password", "mot de passe non cohérent");
+//			}
+//		
 		
 	}
 
