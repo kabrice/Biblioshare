@@ -126,7 +126,15 @@ public class BiblioshareController {
 		return "acceuil";
 
 	}
+	
+	// affichier userProfile
+	@RequestMapping(value = "/userProfile", method = RequestMethod.GET)
+	public String showUserProfile() {
+		
+		return "userProfile";
 
+	}
+	
 	@RequestMapping(value = "supprimer", method = RequestMethod.POST)
 	public String supprimerUser(UtilisateurForm uf, Model model) {
 		utilisateurService.removeUser(uf.getCode());
