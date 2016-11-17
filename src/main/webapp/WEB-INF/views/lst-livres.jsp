@@ -31,10 +31,11 @@
 							href="?id=${livre.id}&note=2" title="Noter à 2">★</a> <a
 							href="?id=${livre.id}&note=1" title="Noter à 1">★</a>
 					</div>
-
-					<a class="btn btn-success"
-						href="${pageContext.request.contextPath }/telecharger/${livre.id}"
-						role="button">Telecharger</a>
+					<input type="hidden" class="idLivre" value="${livre.id}"> <a
+						class="btn btn-success"
+						<%-- 						href="${pageContext.request.contextPath }/telecharger/${livre.id}" --%>
+						role="button"
+						onclick="doDejaTelecharger(${livre.id})">Telecharger</a>
 				</div>
 				<div id="myModal${vs.index}" class="modal fade">
 					<div class="modal-dialog">
@@ -61,12 +62,23 @@
 				</div>
 			</div>
 		</c:forEach>
-
-
 	</div>
-<script type="text/javascript">
 
-</script>
+	<script type="text/javascript">
+		function doDejaTelecharger(id) {
+			
+// 			je récupère la variable du modèle qui inquique que le livre est déja télécharger par luser
+
+			var ctx = "${pageContext.request.contextPath }/telecharger/"+id;
+			window.location.href=ctx;
+			var message = "${deja_telecharger}";
+			if(message){
+				alert("vous avez deja télécharger ce livre");
+				ctx="${pageContext.request.contextPath }/bookshare"
+				window.location.href=ctx;
+			}
+		}
+	</script>
 
 </body>
 
