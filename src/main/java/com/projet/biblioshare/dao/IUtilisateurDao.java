@@ -17,6 +17,16 @@ public interface IUtilisateurDao {
 	public int dejaTelechargerLivre(Utilisateur utilisateur,int idLivre);
 	public List<Livre> afficherLivreUser(Utilisateur utilisateur);
 	public int CountNbLivresUsers(Utilisateur utilisateur);
+	
+	
+	//Marcelin NKOMO
+	
+		public int getNbLivre(Utilisateur utilisateur);
+		public int getNbAmis(Utilisateur utilisateur);
+		public void modifMotDePasse(Utilisateur utilisateur,String pwd);
+		public void modifEmail(Utilisateur utilisateur,String email);
+		public void supprimerCompte(Utilisateur utilisateur);
+		
 
 }
  

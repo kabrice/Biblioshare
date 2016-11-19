@@ -48,7 +48,7 @@
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="${pageContext.request.contextPath }/logout">Se
 											deconnecter</a></li>
-									<li><a href="#">Mon Compte</a></li>
+									<li><a href="${pageContext.request.contextPath }/userProfile">Mon Compte</a></li>
 								</ul></li>
 						</ul>
 						<form class="navbar-form navbar-right search-form" role="search">

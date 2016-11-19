@@ -1,5 +1,6 @@
 package com.projet.biblioshare.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -200,6 +201,72 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 		
 	}
 
+	// Marcelin NKOMO :  recupèrer le nombre d'amis et de livre de l'utilisateur connecté
+	
+		@Override
+		public int getNbLivre(Utilisateur utilisateur ){
+			
+			int nb_libre=0;
+			int iduser= utilisateur.getId();
+			System.out.println("id user "+iduser);
+			
+			try {
+				
+				Query query = em.createNativeQuery( "SELECT count(*)  FROM Livre_Utilisateur u  WHERE u.IdUser=:uid");
+				query.setParameter("uid",iduser); 
+				nb_libre=((BigInteger) query.getSingleResult()).intValue();
+				return nb_libre;
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				return 0;
+				
+			}
+
+		}
+
+		
+		@Override
+		public int getNbAmis(Utilisateur utilisateur) {
+			int nb_amis=0;
+			int iduser= utilisateur.getId();
+			System.out.println("id user "+iduser);
+			
+			try {
+				
+				Query query = em.createNativeQuery( "");
+				query.setParameter("uid",iduser); 
+				nb_amis=((BigInteger) query.getSingleResult()).intValue();
+				return nb_amis;
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				return 0;
+				
+			}
+		}
+
+		@Override
+		public void modifMotDePasse(Utilisateur utilisateur,String pwd) {
+			// TODO Auto-generated method stub
+			utilisateur.setPassword(pwd);
+			utilisateur.setPasswordConfirm(pwd);
+			em.merge(utilisateur);
+			
+		}
+
+		@Override
+		public void modifEmail(Utilisateur utilisateur,String email) {
+			
+			utilisateur.setEmail(email);
+			em.merge(utilisateur);
+		}
+
+		@Override
+		public void supprimerCompte(Utilisateur utilisateur) {
+			// TODO Auto-generated method stub
+			
+		}
 
 	
 

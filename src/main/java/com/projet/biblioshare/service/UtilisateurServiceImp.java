@@ -88,5 +88,48 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		return utilisateurDao.CountNbLivresUsers(utilisateur);
 	}
 	
+	
+	
+	//NKOMO Marcelin
+	
+	
+
+	
+	@Override
+	public int getNbAmis(Utilisateur utilisateur){
+		// TODO Auto-generated method stub
+		return utilisateurDao.getNbAmis(utilisateur);
+	}
+
+
+	@Override
+	public int getNbLivre(Utilisateur utilisateur) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.getNbLivre(utilisateur);
+	}
+
+
+	@Override
+	public void modifMotDePasse(Utilisateur utilisateur,String pwd) {
+		// TODO Auto-generated method stub
+		utilisateurDao.modifMotDePasse(utilisateur,pwd);
+	}
+
+
+
+
+	@Override
+	public void supprimerCompte(Utilisateur utilisateur) {
+		// TODO Auto-generated method stub
+		utilisateurDao.supprimerCompte(utilisateur);
+	}
+
+
+	@Override
+	public void modifEmail(Utilisateur utilisateur, String email) {
+		// TODO Auto-generated method stub
+		utilisateurDao.modifEmail(utilisateur, email);
+	};
+	
 
 }

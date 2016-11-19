@@ -20,4 +20,24 @@
     <servlet-name>appServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ModifPassword</display-name>
+    <servlet-name>ModifPassword</servlet-name>
+    <servlet-class>com.projet.biblioshare.controller.ModifPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifPassword</servlet-name>
+    <url-pattern>/ModifPassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ModifEmail</display-name>
+    <servlet-name>ModifEmail</servlet-name>
+    <servlet-class>com.projet.biblioshare.controller.ModifEmail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifEmail</servlet-name>
+    <url-pattern>/ModifEmail</url-pattern>
+  </servlet-mapping>
 </web-app>
