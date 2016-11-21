@@ -8,24 +8,20 @@ import com.projet.biblioshare.dao.IUtilisateurDao;
 import com.projet.biblioshare.entity.Livre;
 import com.projet.biblioshare.entity.Utilisateur;
 
-
 @Transactional
-public class UtilisateurServiceImp implements IUtilisateurService{
-	
+public class UtilisateurServiceImp implements IUtilisateurService {
+
 	private IUtilisateurDao utilisateurDao;
-	
-	
+
 	public void setUtilisateurDao(IUtilisateurDao utilisateurDao) {
 		this.utilisateurDao = utilisateurDao;
 	}
-	
 
 	@Override
 	public void addUser(Utilisateur u) {
 		// TODO Auto-generated method stub
-		 utilisateurDao.addUser(u);
+		utilisateurDao.addUser(u);
 	}
-
 
 	@Override
 	public List<Utilisateur> listUser() {
@@ -39,13 +35,11 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		utilisateurDao.removeUser(id);
 	}
 
-
 	@Override
 	public void saveUser(Utilisateur u) {
 		// TODO Auto-generated method stub
 		utilisateurDao.saveUser(u);
 	}
-
 
 	@Override
 	public Utilisateur loginUser(Utilisateur u) {
@@ -53,13 +47,11 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		return utilisateurDao.loginUser(u);
 	}
 
-
 	@Override
 	public int checkUserName(Utilisateur u) {
 		// TODO Auto-generated method stub
 		return utilisateurDao.checkUserName(u);
 	}
-
 
 	@Override
 	public void telechargerLivre(Utilisateur utilisateur, int idLivre) {
@@ -67,13 +59,11 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		utilisateurDao.telechargerLivre(utilisateur, idLivre);
 	}
 
-
 	@Override
 	public int dejaTelechargerLivre(Utilisateur utilisateur, int idLivre) {
 		// TODO Auto-generated method stub
 		return utilisateurDao.dejaTelechargerLivre(utilisateur, idLivre);
 	}
-
 
 	@Override
 	public List<Livre> afficherLivreUser(Utilisateur utilisateur) {
@@ -81,26 +71,19 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		return utilisateurDao.afficherLivreUser(utilisateur);
 	}
 
-
 	@Override
 	public int CountNbLivresUsers(Utilisateur utilisateur) {
 		// TODO Auto-generated method stub
 		return utilisateurDao.CountNbLivresUsers(utilisateur);
 	}
-	
-	
-	
-	//NKOMO Marcelin
-	
-	
 
-	
+	// NKOMO Marcelin
+
 	@Override
-	public int getNbAmis(Utilisateur utilisateur){
+	public int getNbAmis(Utilisateur utilisateur) {
 		// TODO Auto-generated method stub
 		return utilisateurDao.getNbAmis(utilisateur);
 	}
-
 
 	@Override
 	public int getNbLivre(Utilisateur utilisateur) {
@@ -108,15 +91,11 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		return utilisateurDao.getNbLivre(utilisateur);
 	}
 
-
 	@Override
-	public void modifMotDePasse(Utilisateur utilisateur,String pwd) {
+	public void modifMotDePasse(Utilisateur utilisateur, String pwd) {
 		// TODO Auto-generated method stub
-		utilisateurDao.modifMotDePasse(utilisateur,pwd);
+		utilisateurDao.modifMotDePasse(utilisateur, pwd);
 	}
-
-
-
 
 	@Override
 	public void supprimerCompte(Utilisateur utilisateur) {
@@ -124,12 +103,15 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		utilisateurDao.supprimerCompte(utilisateur);
 	}
 
-
 	@Override
 	public void modifEmail(Utilisateur utilisateur, String email) {
 		// TODO Auto-generated method stub
 		utilisateurDao.modifEmail(utilisateur, email);
+	}
+
+	@Override
+	public Utilisateur chercheUser(String pseudo) {
+		return utilisateurDao.chercheUser(pseudo);
 	};
-	
 
 }

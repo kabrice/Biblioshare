@@ -27,6 +27,9 @@ public interface IUtilisateurDao {
 		public void modifEmail(Utilisateur utilisateur,String email);
 		public void supprimerCompte(Utilisateur utilisateur);
 		
+		//Lilian PARISATO
+		
+		public Utilisateur chercheUser(String pseudo);
 
 }
  
