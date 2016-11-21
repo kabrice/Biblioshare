@@ -287,4 +287,16 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 		}
 	}
 
+	@Override
+	public List<Utilisateur> listDemandeAmis(Utilisateur userCourant) {
+		// a faire dès que la table demandeAmis est prête 
+		return null;
+	}
+
+	@Override
+	public List<Utilisateur> listAmis(Utilisateur userCourant) {
+		// à faire dès que la table amis prête
+		return null;
+	}
+
 }

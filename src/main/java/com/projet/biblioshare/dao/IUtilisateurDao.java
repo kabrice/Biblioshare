@@ -28,8 +28,9 @@ public interface IUtilisateurDao {
 		public void supprimerCompte(Utilisateur utilisateur);
 		
 		//Lilian PARISATO
-		
+	
 		public Utilisateur chercheUser(String pseudo);
-
+		public List<Utilisateur> listDemandeAmis(Utilisateur userCourant);
+		public List<Utilisateur> listAmis( Utilisateur userCourant);
 }
  

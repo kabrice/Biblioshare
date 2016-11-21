@@ -9,7 +9,7 @@ import com.projet.biblioshare.entity.Livre;
 import com.projet.biblioshare.entity.Utilisateur;
 
 @Transactional
-public class UtilisateurServiceImp implements IUtilisateurService {
+public abstract class UtilisateurServiceImp implements IUtilisateurService {
 
 	private IUtilisateurDao utilisateurDao;
 
@@ -112,6 +112,17 @@ public class UtilisateurServiceImp implements IUtilisateurService {
 	@Override
 	public Utilisateur chercheUser(String pseudo) {
 		return utilisateurDao.chercheUser(pseudo);
+	}
+
+	@Override
+	public List<Utilisateur> listDemandeAmis(Utilisateur userCourant) {
+		
+		return utilisateurDao.listDemandeAmis(userCourant);
+	};
+	@Override
+	public List<Utilisateur> listAmis(Utilisateur user) {
+		
+		return utilisateurDao.listAmis(user);
 	};
 
 }
