@@ -249,8 +249,10 @@ public class BiblioshareController {
 	
 	@RequestMapping(value = "/demande_amis/{idAmis}", method = RequestMethod.GET)
 	public String demandeAmis( Model model, Utilisateur utilisateur, HttpSession session,@PathVariable("idAmis") int idAmis) {
+		utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 		int dejaDemander=utilisateurService.demandeDejaEnvoyer(utilisateur, idAmis);
-		System.out.println("valeur retourné "+dejaDemander);
+		System.err.println("//////////////////////////////////////////////");
+		System.err.println("valeur retourné "+dejaDemander);
 		if(dejaDemander==0){
 			model.addAttribute("deja_envoyer", "vous avez deja envoyer une demande a cet utilisateur");
 			return showSuccess(model, session);

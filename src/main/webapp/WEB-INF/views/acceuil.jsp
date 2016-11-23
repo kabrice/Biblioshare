@@ -83,7 +83,7 @@
 		</div>
 		<div class="row">
 			<div class="row">
-				<div class="col-sm-3 col-md-3">
+				<div class="col-sm-2 col-md-2">
 					<div class="panel-group" id="accordion">
 						<div class="panel panel-default">
 							<div class="panel-heading">
@@ -177,7 +177,7 @@
 
 					</div>
 				</div>
-				<div class="col-sm-9 col-md-9">
+				<div class="col-sm-8 col-md-8">
 					<div class="well">
 
 						<c:if
@@ -242,22 +242,35 @@
 							</div>
 
 							<div id="menu4" class="tab-pane fade">
-								<form action="" method="post">
-									<select name='utilisateurs' class="selectpicker"
-										data-live-search="true" id="utilisateurs">
-										<option value="utilisateur" data-tokens="Utilisateurs">Liste
-											Utilisateurs</option>
-										<c:forEach items="${listeUtilisateur}" var="listeUser">
+								<c:if test="${deja_envoyer != null}">
+									<div class="alert alert-danger">${deja_envoyer}</div>
+								</c:if>
 
-											<option value="${listeUser.id}"
-												data-tokens="${listeUser.username}">${listeUser.username}</option>
 
-										</c:forEach>
-									</select>
-
-								</form>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="col-sm-2 col-md-2">
+					<div class="well">
+						<form action="" method="post">
+							<select name='utilisateurs' class="selectpicker"
+								data-live-search="true" id="utilisateurs">
+								<option value="utilisateur" data-tokens="Utilisateurs">Liste
+									Utilisateurs</option>
+								<c:forEach items="${listeUtilisateur}" var="listeUser">
+
+									<option value="${listeUser.id}"	data-tokens="${listeUser.username}">${listeUser.username}</option>
+
+								</c:forEach>
+							</select>
+
+						</form>
+						<ul>
+							<c:forEach items="${listeAmis}" var="listeAmis">
+								<li>${listeAmis.username}</li>
+							</c:forEach>
+						</ul>
 					</div>
 				</div>
 
