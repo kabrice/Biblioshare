@@ -215,8 +215,16 @@ public class BiblioshareController {
 		int nbLivreUser = utilisateurService.CountNbLivresUsers(utilisateur);
 		//int idCategorie=(Integer) session.getAttribute("idCategorie");
 		//liste des livres 
+		
+		List<Utilisateur> listeAmis=utilisateurService.listerAmis(utilisateur);
 		List<Categorie> listeCategorie=categorieService.listerCategorie();
 		List<Utilisateur> lstUsers=utilisateurService.listUser();
+		
+//		for(Utilisateur u:listeAmis){
+//			System.out.println("nom user "+u.getUsername());
+//		}
+//		
+		model.addAttribute("listeAmis", listeAmis);
 		model.addAttribute("listeUtilisateur",lstUsers);
 		model.addAttribute("listeCategorie", listeCategorie);
 		model.addAttribute("livresUsers", lstLivreUser);
@@ -242,9 +250,10 @@ public class BiblioshareController {
 	@RequestMapping(value = "/demande_amis/{idAmis}", method = RequestMethod.GET)
 	public String demandeAmis( Model model, Utilisateur utilisateur, HttpSession session,@PathVariable("idAmis") int idAmis) {
 		int dejaDemander=utilisateurService.demandeDejaEnvoyer(utilisateur, idAmis);
+		System.out.println("valeur retourné "+dejaDemander);
 		if(dejaDemander==0){
 			model.addAttribute("deja_envoyer", "vous avez deja envoyer une demande a cet utilisateur");
-			return "redirect:../acceuil";
+			return showSuccess(model, session);
 		}
 		else
 		{

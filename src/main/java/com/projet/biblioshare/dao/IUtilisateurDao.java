@@ -28,6 +28,7 @@ public interface IUtilisateurDao {
 	public List<Utilisateur> afficherNotification(Utilisateur utilisateur);
 	public int dejaAmis(Utilisateur utilisateur,int iduser2);
 	public int demandeDejaEnvoyer(Utilisateur utilisateur,int iduser2);
+	public List<Utilisateur> listerAmis(Utilisateur utilisateur);
 
 }
  

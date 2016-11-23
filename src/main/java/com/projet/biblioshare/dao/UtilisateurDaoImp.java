@@ -143,7 +143,7 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 			query.setParameter("user", idUser);
 			query.setParameter("livre", idLivre);
 
-			result = ((Number) query.getSingleResult()).intValue();
+			result = ((Integer) query.getSingleResult()).intValue();
 
 			if (result == 0) {
 				System.out.println("résultat retourné " + result);
@@ -223,6 +223,7 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 					"select IdLivre from livre where idCategorie=:categorie and IdLivre in (Select IdLivre from Livre_Utilisateur WHERE IdUser=:user)");
 			query.setParameter("user", idUser);
 			query.setParameter("categorie", idCategorie);
+			@SuppressWarnings("unchecked")
 			List<Integer> idlivres = query.getResultList();
 
 			for (Integer i : idlivres) {
@@ -256,7 +257,7 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 
 			userAmis.addIdDemandeur(utilisateur.getId());
 			userAmis.setNotification(userAmis.getNotification() + 1);
-			System.out.println("username " + userAmis.getUsername());
+			//System.out.println("username " + userAmis.getUsername());
 			em.merge(userAmis);
 			em.flush();
 		} catch (Exception e) {
@@ -333,28 +334,64 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 		return 0;
 	}
 
+
 	@Override
 	public int demandeDejaEnvoyer(Utilisateur utilisateur, int iduser2) {
 		
+		int result = 0;
+		int idUser = utilisateur.getId();
+
 		try {
-			Query req = em.createNativeQuery("select * from Demandes where idUser = :user");
-			req.setParameter("user", utilisateur.getId());
 			
-			@SuppressWarnings("unchecked")
-			List<Integer> lstdmdAmis = req.getResultList();
-			
-			for (Integer i : lstdmdAmis) {
-				if (i == iduser2) {
-					return 0;
-				}
+
+			Query query = em.createNativeQuery("select count(*) from Demandes where Demande=:idDemandeur and idUser=:user");
+			query.setParameter("idDemandeur", idUser);
+			query.setParameter("user", iduser2);
+
+			result = ((Number) query.getSingleResult()).intValue();
+
+			if (result == 0) {
+				System.out.println("résultat retourné " + result);
 				return 1;
+			} else {
+				System.out.println("résultat retourné " + result);
+				return 0;
 			}
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO: handle exception
+			return 0;
 		}
 
-		return 0;
+	
+		
+	}
+
+	@Override
+	public List<Utilisateur> listerAmis(Utilisateur utilisateur) {
+		List<Utilisateur> lstUser=new ArrayList<Utilisateur>();
+		int idUser=utilisateur.getId();
+		
+		try {
+			Query query =em.createNativeQuery("select Utilisateur2  from Amis where Utilisateur1=:user");
+			query.setParameter("user", idUser);
+			@SuppressWarnings("unchecked")
+			List<Integer> lstIdUser=query.getResultList();
+			
+			for(Integer i: lstIdUser){
+				lstUser.add(em.find(Utilisateur.class, i));
+			}
+			for(Utilisateur u:lstUser){
+				System.out.println("nom user "+u.getUsername());
+			}
+			return lstUser;
+		} catch (Exception e) {
+			System.out.println("je ne retourne rien");
+			e.printStackTrace();
+			return null;
+		}
+		
+		
 	}
 
 }

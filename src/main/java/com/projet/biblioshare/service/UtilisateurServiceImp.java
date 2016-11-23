@@ -164,6 +164,14 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		// TODO Auto-generated method stub
 		return utilisateurDao.demandeDejaEnvoyer(utilisateur, iduser2);
 	}
+
+
+	@Override
+	public List<Utilisateur> listerAmis(Utilisateur utilisateur) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.listerAmis(utilisateur);
+				
+	}
 	
 
 }
