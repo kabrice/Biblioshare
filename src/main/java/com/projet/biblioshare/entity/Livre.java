@@ -3,7 +3,6 @@ package com.projet.biblioshare.entity;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +31,10 @@ public class Livre {
 	@NotEmpty
 	@Column(name = "Libelle")
 	private String libelle;
+	
+	@NotEmpty
+	@Column(name = "Prix",columnDefinition="Decimal(10,2) default '10.00'")
+	private Double prix;
 	
 	@NotEmpty
 	@Column(name = "image")
@@ -132,6 +135,17 @@ public class Livre {
 
 	public int getId() {
 		return id;
+	}
+
+	
+	
+
+	public Double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(Double prix) {
+		this.prix = prix;
 	}
 
 	public Livre(String description, String libelle, Date dateSortie) {

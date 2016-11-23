@@ -46,8 +46,8 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false"><i
+					<li><a href="${pageContext.request.contextPath }/acceuil" 
+						role="button" aria-expanded="false"><i
 							class="fa fa-fw fa-bell-o"></i> Acceuil</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false"><i
@@ -144,28 +144,13 @@
 
 						<div class="item">
 							<div class="row">
-							
+							<c:forEach items="${newLivres}" var="livre">
 								<div class="col-md-3">
 									<a href="#" class="thumbnail"><img
-										src="http://placehold.it/250x250" alt="Image"
-										style="max-width: 100%;"></a>
+										src='<c:url value="/resources/images/${livre.image}"></c:url>' alt="Image"
+										style="max-width: 100%; width: 250px; height:250px "></a>
 								</div>
-							
-								<div class="col-md-3">
-									<a href="#" class="thumbnail"><img
-										src="http://placehold.it/250x250" alt="Image"
-										style="max-width: 100%;"></a>
-								</div>
-								<div class="col-md-3">
-									<a href="#" class="thumbnail"><img
-										src="http://placehold.it/250x250" alt="Image"
-										style="max-width: 100%;"></a>
-								</div>
-								<div class="col-md-3">
-									<a href="#" class="thumbnail"><img
-										src="http://placehold.it/250x250" alt="Image"
-										style="max-width: 100%;"></a>
-								</div>
+							</c:forEach>
 							</div>
 							<!--.row-->
 						</div>

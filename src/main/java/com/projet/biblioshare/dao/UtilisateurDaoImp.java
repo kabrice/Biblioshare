@@ -1,10 +1,7 @@
 package com.projet.biblioshare.dao;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -99,22 +96,21 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 
 	@Override
 	public void telechargerLivre(Utilisateur utilisateur, int idLivre) {
-		// TODO Auto-generated method stub
-		// Livre livre=null;
-
+		Double debit = 0.0;
 		try {
-			// juste pour verifier si je récupère bien le bon livre
-			// livre=em.find(Livre.class, idLivre);
-			// System.out.println("identifiant "+livre.getId()+"editeur
-			// "+livre.getEditeur().getNom()+"description
-			// "+livre.getDescription()+ " utilisateur
-			// "+utilisateur.getUsername());
 
 			int idUser = utilisateur.getId();
 			Query query = em.createNativeQuery("INSERT INTO Livre_Utilisateur values(?,?)");
 			query.setParameter(1, idUser);
 			query.setParameter(2, idLivre);
 			query.executeUpdate();
+
+			Double credit = em.find(Utilisateur.class, utilisateur.getId()).getCredit();
+			Double prixLivre = em.find(Livre.class, idLivre).getPrix();
+			debit = credit - prixLivre;
+			utilisateur.setCredit(debit);
+
+			em.merge(utilisateur);
 
 			em.flush();
 			System.out.println("livre ajouté a la bibliothèque");
@@ -203,100 +199,162 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 
 	}
 
-	// Marcelin NKOMO : recupèrer le nombre d'amis et de livre de l'utilisateur
-	// connecté
-
 	@Override
-	public int getNbLivre(Utilisateur utilisateur) {
-
-		int nb_libre = 0;
-		int iduser = utilisateur.getId();
-		System.out.println("id user " + iduser);
-
-		try {
-
-			Query query = em.createNativeQuery("SELECT count(*)  FROM Livre_Utilisateur u  WHERE u.IdUser=:uid");
-			query.setParameter("uid", iduser);
-			nb_libre = ((BigInteger) query.getSingleResult()).intValue();
-			return nb_libre;
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+	public int verifierCredit(Utilisateur utilisateur, int idLivre) {
+		Livre l = em.find(Livre.class, idLivre);
+		if (utilisateur.getCredit() < l.getPrix()) {
 			return 0;
-
 		}
-
+		return 1;
 	}
 
 	@Override
-	public int getNbAmis(Utilisateur utilisateur) {
-		int nb_amis = 0;
-		int iduser = utilisateur.getId();
-		System.out.println("id user " + iduser);
-
-		try {
-
-			Query query = em.createNativeQuery("");
-			query.setParameter("uid", iduser);
-			nb_amis = ((BigInteger) query.getSingleResult()).intValue();
-			return nb_amis;
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return 0;
-
-		}
-	}
-
-	@Override
-	public void modifMotDePasse(Utilisateur utilisateur, String pwd) {
-		// TODO Auto-generated method stub
-		utilisateur.setPassword(pwd);
-		utilisateur.setPasswordConfirm(pwd);
-		em.merge(utilisateur);
-
-	}
-
-	@Override
-	public void modifEmail(Utilisateur utilisateur, String email) {
-
-		utilisateur.setEmail(email);
-		em.merge(utilisateur);
-	}
-
-	@Override
-	public void supprimerCompte(Utilisateur utilisateur) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Utilisateur chercheUser(String pseudo) {
-		Utilisateur user = null;
-		try {
-
-			Query query = em.createQuery("SELECT u  FROM Utilisateur u  WHERE u.username=:username");
-			query.setParameter("username", pseudo);
-			user =  (Utilisateur) query.getSingleResult();
-			return user;
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return user;
-
-		}
-	}
-
-	@Override
-	public List<Utilisateur> listDemandeAmis(Utilisateur userCourant) {
-		// a faire dès que la table demandeAmis est prête 
+	public List<Livre> showLivreByAuthor(Utilisateur utilisateur, int idAuteur) {
 		return null;
 	}
 
 	@Override
-	public List<Utilisateur> listAmis(Utilisateur userCourant) {
-		// à faire dès que la table amis prête
+	public List<Livre> showLivreByCategory(Utilisateur utilisateur, int idCategorie) {
+		int idUser = utilisateur.getId();
+		List<Livre> LBA = new ArrayList<Livre>();
+
+		try {
+			Query query = em.createNativeQuery(
+					"select IdLivre from livre where idCategorie=:categorie and IdLivre in (Select IdLivre from Livre_Utilisateur WHERE IdUser=:user)");
+			query.setParameter("user", idUser);
+			query.setParameter("categorie", idCategorie);
+			List<Integer> idlivres = query.getResultList();
+
+			for (Integer i : idlivres) {
+				LBA.add(em.find(Livre.class, i));
+			}
+
+			return LBA;
+
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Livre> showLivreByEditor(Utilisateur utilisateur, int idEditeur) {
+		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Livre> showLivreByCollection(Utilisateur utilisateur, int idCollection) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Utilisateur demanderAmis(Utilisateur utilisateur, int idUser) {
+		Utilisateur userAmis = em.find(Utilisateur.class, idUser);
+
+		try {
+
+			userAmis.addIdDemandeur(utilisateur.getId());
+			userAmis.setNotification(userAmis.getNotification() + 1);
+			System.out.println("username " + userAmis.getUsername());
+			em.merge(userAmis);
+			em.flush();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return utilisateur;
+
+	}
+
+	@Override
+	public void accepterAmis(Utilisateur utilisateur, int IdUser) {
+
+		try {
+			Query query = em.createNativeQuery("INSERT INTO Amis values(?,?)");
+			query.setParameter(1, utilisateur.getId());
+			query.setParameter(2, IdUser);
+			query.executeUpdate();
+			utilisateur.removeIdDemandeur(IdUser);
+			utilisateur.setNotification(utilisateur.getNotification() - 1);
+			em.merge(utilisateur);
+			em.flush();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public Utilisateur rechercherUser(int idUser) {
+		// TODO Auto-generated method stub
+		return em.find(Utilisateur.class, idUser);
+	}
+
+	@Override
+	public List<Utilisateur> afficherNotification(Utilisateur utilisateur) {
+		// SELECT Demande FROM Demandes WHERE IdUser=6;
+		int idUser = utilisateur.getId();
+		List<Utilisateur> listeDemandeurs = new ArrayList<Utilisateur>();
+
+		try {
+			Query query = em.createNativeQuery("Select Demande from Demandes WHERE IdUser=:user");
+			query.setParameter("user", idUser);
+			@SuppressWarnings("unchecked")
+			List<Integer> idemandeurs = query.getResultList();
+
+			for (Integer i : idemandeurs) {
+				listeDemandeurs.add(em.find(Utilisateur.class, i));
+			}
+			return listeDemandeurs;
+
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
+	@Override
+	public int dejaAmis(Utilisateur utilisateur, int iduser2) {
+
+		Query req = em.createNativeQuery("select * from Amis where Utilisateur1 = :user");
+		req.setParameter("user", utilisateur.getId());
+		@SuppressWarnings("unchecked")
+		List<Integer> lstAmis = req.getResultList();
+
+		for (Integer i : lstAmis) {
+			if (i == iduser2) {
+				return 0;
+			}
+			return 1;
+		}
+
+		return 0;
+	}
+
+	@Override
+	public int demandeDejaEnvoyer(Utilisateur utilisateur, int iduser2) {
+		
+		try {
+			Query req = em.createNativeQuery("select * from Demandes where idUser = :user");
+			req.setParameter("user", utilisateur.getId());
+			
+			@SuppressWarnings("unchecked")
+			List<Integer> lstdmdAmis = req.getResultList();
+			
+			for (Integer i : lstdmdAmis) {
+				if (i == iduser2) {
+					return 0;
+				}
+				return 1;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
 	}
 
 }

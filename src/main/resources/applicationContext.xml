@@ -10,7 +10,6 @@
 		notre projet ainsi que leur dependeces -->
 
 	<!-- Classe utilisateur service et dao -->
-
 	<bean id="utilisateurDao" class="com.projet.biblioshare.dao.UtilisateurDaoImp">
 	</bean>
 	<bean id="utilisateurService" class="com.projet.biblioshare.service.UtilisateurServiceImp">
@@ -54,10 +53,10 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver">
 		</property>
-		<property name="url" value="jdbc:mysql://localhost:8889/biblioshare">
+		<property name="url" value="jdbc:mysql://localhost:3306/biblioshare">
 		</property>
 		<property name="username" value="root"></property>
-		<property name="password" value="root"></property>
+		<property name="password" value=""></property>
 	</bean>
 
 	<!-- Persistence manate pour l'entity manager -->

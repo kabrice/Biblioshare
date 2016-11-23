@@ -1,40 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" --%>
-<%-- 	pageEncoding="ISO-8859-1"%> --%>
-<%-- <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> --%>
 
-<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> -->
-<!-- <title>Insert title here</title> -->
-<!-- </head> -->
-<!-- <body> -->
-<!-- 	<div align="center"> -->
-<%-- 	<p style="color: red;">${failed }</p> --%>
-<!-- 	</div> -->
-<!-- 	<div align="center"> -->
-<!-- 		<h1>Create new User</h1> -->
-<!-- 		<table> -->
-<%-- 			<f:form modelAttribute="userData" action="login" method="post"> --%>
-<!-- 				<tr> -->
-<!-- 					<td>Username</td> -->
-<%-- 					<td><f:input path="username" /></td> --%>
-
-<!-- 				</tr> -->
-
-<!-- 				<tr> -->
-<!-- 					<td>Password</td> -->
-<%-- 					<td><f:input path="password" /></td> --%>
-
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td><input type="submit" value="login"></td> -->
-<!-- 				</tr> -->
-<%-- 			</f:form> --%>
-<!-- 		</table> -->
-<!-- 	</div> -->
-<!-- </body> -->
-<!-- </html> -->
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -142,7 +106,8 @@
 									<f:errors path="email" cssStyle="color:red;" />	
 								</div>
 
-
+								<f:input type="hidden" class="form-control" id="credit"
+										path="credit" value="100.00"/>
 								<div class="input-group input-sm">
 									<label class="input-group-addon" for="password"><i
 										class="fa fa-lock"></i></label>

@@ -9,6 +9,7 @@ public interface IUtilisateurDao {
 	public List<Utilisateur> listUser();
 	public void addUser(Utilisateur u);
 	public int checkUserName(Utilisateur u);
+	public Utilisateur rechercherUser(int idUser);
 	
 	public void saveUser(Utilisateur u);
 	public Utilisateur loginUser(Utilisateur u);
@@ -17,20 +18,16 @@ public interface IUtilisateurDao {
 	public int dejaTelechargerLivre(Utilisateur utilisateur,int idLivre);
 	public List<Livre> afficherLivreUser(Utilisateur utilisateur);
 	public int CountNbLivresUsers(Utilisateur utilisateur);
-	
-	
-	//Marcelin NKOMO
-	
-		public int getNbLivre(Utilisateur utilisateur);
-		public int getNbAmis(Utilisateur utilisateur);
-		public void modifMotDePasse(Utilisateur utilisateur,String pwd);
-		public void modifEmail(Utilisateur utilisateur,String email);
-		public void supprimerCompte(Utilisateur utilisateur);
-		
-		//Lilian PARISATO
-	
-		public Utilisateur chercheUser(String pseudo);
-		public List<Utilisateur> listDemandeAmis(Utilisateur userCourant);
-		public List<Utilisateur> listAmis( Utilisateur userCourant);
+	public int verifierCredit(Utilisateur utilisateur,int idLivre);
+	public List<Livre> showLivreByAuthor(Utilisateur utilisateur,int idAuteur);
+	public List<Livre> showLivreByCategory(Utilisateur utilisateur,int idCategorie);
+	public List<Livre> showLivreByEditor(Utilisateur utilisateur,int idEditeur);
+	public List<Livre> showLivreByCollection(Utilisateur utilisateur,int idCollection);
+	public Utilisateur demanderAmis(Utilisateur utilisateur,int idUser);
+	public void accepterAmis(Utilisateur utilisateur,int IdUser);
+	public List<Utilisateur> afficherNotification(Utilisateur utilisateur);
+	public int dejaAmis(Utilisateur utilisateur,int iduser2);
+	public int demandeDejaEnvoyer(Utilisateur utilisateur,int iduser2);
+
 }
  

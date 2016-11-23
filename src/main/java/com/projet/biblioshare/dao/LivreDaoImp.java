@@ -32,7 +32,8 @@ public class LivreDaoImp implements ILivreDao {
 	@Override
 	public List<Livre> listerNouveauLivre() {
 		
-		Query req = em.createQuery("select   l from Livre l");	
+		Query req = em.createQuery("select   l from Livre l ORDER by l.id desc");
+		req.setMaxResults(4);	
 		return req.getResultList();
 	}
 

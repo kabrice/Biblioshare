@@ -8,20 +8,24 @@ import com.projet.biblioshare.dao.IUtilisateurDao;
 import com.projet.biblioshare.entity.Livre;
 import com.projet.biblioshare.entity.Utilisateur;
 
+
 @Transactional
-public abstract class UtilisateurServiceImp implements IUtilisateurService {
-
+public class UtilisateurServiceImp implements IUtilisateurService{
+	
 	private IUtilisateurDao utilisateurDao;
-
+	
+	
 	public void setUtilisateurDao(IUtilisateurDao utilisateurDao) {
 		this.utilisateurDao = utilisateurDao;
 	}
+	
 
 	@Override
 	public void addUser(Utilisateur u) {
 		// TODO Auto-generated method stub
-		utilisateurDao.addUser(u);
+		 utilisateurDao.addUser(u);
 	}
+
 
 	@Override
 	public List<Utilisateur> listUser() {
@@ -35,11 +39,13 @@ public abstract class UtilisateurServiceImp implements IUtilisateurService {
 		utilisateurDao.removeUser(id);
 	}
 
+
 	@Override
 	public void saveUser(Utilisateur u) {
 		// TODO Auto-generated method stub
 		utilisateurDao.saveUser(u);
 	}
+
 
 	@Override
 	public Utilisateur loginUser(Utilisateur u) {
@@ -47,11 +53,13 @@ public abstract class UtilisateurServiceImp implements IUtilisateurService {
 		return utilisateurDao.loginUser(u);
 	}
 
+
 	@Override
 	public int checkUserName(Utilisateur u) {
 		// TODO Auto-generated method stub
 		return utilisateurDao.checkUserName(u);
 	}
+
 
 	@Override
 	public void telechargerLivre(Utilisateur utilisateur, int idLivre) {
@@ -59,11 +67,13 @@ public abstract class UtilisateurServiceImp implements IUtilisateurService {
 		utilisateurDao.telechargerLivre(utilisateur, idLivre);
 	}
 
+
 	@Override
 	public int dejaTelechargerLivre(Utilisateur utilisateur, int idLivre) {
 		// TODO Auto-generated method stub
 		return utilisateurDao.dejaTelechargerLivre(utilisateur, idLivre);
 	}
+
 
 	@Override
 	public List<Livre> afficherLivreUser(Utilisateur utilisateur) {
@@ -71,58 +81,89 @@ public abstract class UtilisateurServiceImp implements IUtilisateurService {
 		return utilisateurDao.afficherLivreUser(utilisateur);
 	}
 
+
 	@Override
 	public int CountNbLivresUsers(Utilisateur utilisateur) {
 		// TODO Auto-generated method stub
 		return utilisateurDao.CountNbLivresUsers(utilisateur);
 	}
 
-	// NKOMO Marcelin
 
 	@Override
-	public int getNbAmis(Utilisateur utilisateur) {
+	public int verifierCredit(Utilisateur utilisateur, int idLivre) {
 		// TODO Auto-generated method stub
-		return utilisateurDao.getNbAmis(utilisateur);
+		return utilisateurDao.verifierCredit(utilisateur, idLivre);
 	}
 
+
 	@Override
-	public int getNbLivre(Utilisateur utilisateur) {
+	public List<Livre> showLivreByAuthor(Utilisateur utilisateur, int idAuteur) {
 		// TODO Auto-generated method stub
-		return utilisateurDao.getNbLivre(utilisateur);
+		return null;
 	}
 
+
 	@Override
-	public void modifMotDePasse(Utilisateur utilisateur, String pwd) {
+	public List<Livre> showLivreByCategory(Utilisateur utilisateur, int idCategorie) {
 		// TODO Auto-generated method stub
-		utilisateurDao.modifMotDePasse(utilisateur, pwd);
+		return utilisateurDao.showLivreByCategory(utilisateur, idCategorie);
 	}
 
+
 	@Override
-	public void supprimerCompte(Utilisateur utilisateur) {
+	public List<Livre> showLivreByEditor(Utilisateur utilisateur, int idEditeur) {
 		// TODO Auto-generated method stub
-		utilisateurDao.supprimerCompte(utilisateur);
+		return null;
 	}
 
+
 	@Override
-	public void modifEmail(Utilisateur utilisateur, String email) {
+	public List<Livre> showLivreByCollection(Utilisateur utilisateur, int idCollection) {
 		// TODO Auto-generated method stub
-		utilisateurDao.modifEmail(utilisateur, email);
+		return null;
 	}
 
-	@Override
-	public Utilisateur chercheUser(String pseudo) {
-		return utilisateurDao.chercheUser(pseudo);
-	}
 
 	@Override
-	public List<Utilisateur> listDemandeAmis(Utilisateur userCourant) {
+	public Utilisateur demanderAmis(Utilisateur utilisateur,int idUser){
+		return utilisateurDao.demanderAmis(utilisateur, idUser);
 		
-		return utilisateurDao.listDemandeAmis(userCourant);
-	};
+	}
+
+
 	@Override
-	public List<Utilisateur> listAmis(Utilisateur user) {
+	public void accepterAmis(Utilisateur utilisateur, int IdUser) {
+		utilisateurDao.accepterAmis(utilisateur, IdUser);
 		
-		return utilisateurDao.listAmis(user);
-	};
+	}
+
+
+	@Override
+	public Utilisateur rechercherUser(int idUser) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.rechercherUser(idUser);
+	}
+
+
+	@Override
+	public List<Utilisateur> afficherNotification(Utilisateur utilisateur) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.afficherNotification(utilisateur);
+	}
+
+
+	@Override
+	public int dejaAmis(Utilisateur utilisateur, int iduser2) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.dejaAmis(utilisateur, iduser2);
+	}
+
+
+	@Override
+	public int demandeDejaEnvoyer(Utilisateur utilisateur, int iduser2) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.demandeDejaEnvoyer(utilisateur, iduser2);
+	}
+	
 
 }

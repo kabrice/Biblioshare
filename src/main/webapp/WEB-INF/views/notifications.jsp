@@ -20,11 +20,6 @@
 </head>
 <body>
 	<div class="container-fluide">
-		<c:if test="${nouvel_amis != null}">
-			<div class="alert alert-success">
-				<p>Nouvel amis ajouté.</p>
-			</div>
-		</c:if>
 		<div class="row">
 			<nav class="navbar navbar-findcond ">
 				<div class="container">
@@ -48,9 +43,8 @@
 							<li><a href="${pageContext.request.contextPath }/acceuil"
 								role="button" aria-expanded="false"><i
 									class="fa fa-fw fa-home"></i> Acceuil</a></li>
-							<li class="dropdown"><a
-								href="${pageContext.request.contextPath }/mes_notification"
-								role="button" aria-expanded="false"><i
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								 role="button" aria-expanded="false"><i
 									class="fa fa-fw fa-bell-o"></i> Notifications <span
 									class="badge">${utilisateur.notification}</span></a></li>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -180,12 +174,8 @@
 				<div class="col-sm-9 col-md-9">
 					<div class="well">
 
-						<c:if
-							test="${not fn:endsWith(pageContext.request.requestURI, '/acceuil')}">
-							<a href="${pageContext.request.contextPath }/bookshare">Bookshare</a>
-							<jsp:include page="livres-users.jsp"></jsp:include>
-						</c:if>
-
+							<jsp:include page="lst-notifications.jsp"></jsp:include>
+						
 					</div>
 					<div class="well">
 
@@ -287,30 +277,19 @@
 
 	<script type="text/javascript">
 		$(function() {
-			$('#categorieLivre')
+			$('#ajout')
 					.bind(
-							'change',
+							'click',
 							function() {
-								var idCateg = $(this).val(); // get selected value
-								window.location = "${pageContext.request.contextPath }/categorie/"
-										+ idCateg;
-
+								
+								var idAmis = $(this).attr("value"); // get selected value
+								window.location = "${pageContext.request.contextPath }/ajouter_amis/"
+										+ idAmis;
 								return true;
 							});
 		});
-
-		$(function() {
-			$('#utilisateurs')
-					.bind(
-							'change',
-							function() {
-								var idUser = $(this).val(); // get selected value
-								window.location = "${pageContext.request.contextPath }/demande_amis/"
-										+ idUser;
-
-								return true;
-							});
-		});
+		
+		
 	</script>
 
 

@@ -1,9 +1,12 @@
 package com.projet.biblioshare.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -35,6 +39,10 @@ public class Utilisateur {
 	@Column(name="Prenom")
 	private String prenom;
 	
+	
+	@Column(name="Credit",columnDefinition="Decimal(10,2) default '100.00'")
+	private Double credit;
+	
 	@NotEmpty(message="l'e-mail ne doit pas etre vide")
 	@Email
 	@Column(name="Email")
@@ -53,6 +61,24 @@ public class Utilisateur {
 	@Length(max=10,message="mininum 5 lettre maximun 10",min=5)
 	@Column(name="Username")
 	private String username;
+	
+	
+	@Column(name="Notification")
+	private int notification;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="Demandes", joinColumns=@JoinColumn(name="IdUser"))
+	@Column(name="Demande")
+	private List<Integer> idDemandeur;
+	
+	
+	 @ManyToMany
+	 @JoinTable(name = "Amis",
+	            joinColumns =
+	                @JoinColumn(name = "Utilisateur1", referencedColumnName = "IdUser"),
+	            inverseJoinColumns =
+	                @JoinColumn(name = "Utilisateur2", referencedColumnName = "IdUser"))
+	    private List<Utilisateur> users;
 	
 	 
 	public Utilisateur(String nom, String prenom, String email, String password) {
@@ -128,6 +154,48 @@ public class Utilisateur {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
+	public Double getCredit() {
+		return credit;
+	}
+	public void setCredit(Double credit) {
+		this.credit = credit;
+	}
+	
+	public List<Utilisateur> getUsers() {
+		return users;
+	}
+	public void setUsers(List<Utilisateur> users) {
+		this.users = users;
+	}
+	
+	public  void addUtilisateur(Utilisateur user) {
+		users.add(user);
+		if(user.getUsers().contains(this)){
+			user.addUtilisateur(this);
+		}
+	}
+	public void addIdDemandeur(Integer idDemandeur) {
+		this.idDemandeur.add(idDemandeur);
+
+	}
+	public void removeIdDemandeur(Integer idDemandeur) {
+		this.idDemandeur.remove(idDemandeur);
+
+	}
+	public int getNotification() {
+		return notification;
+	}
+	public void setNotification(int notification) {
+		this.notification = notification;
+	}
+	public List<Integer> getIdDemandeur() {
+		return idDemandeur;
+	}
+	public void setIdDemandeur(List<Integer> idDemandeur) {
+		this.idDemandeur = idDemandeur;
+	}
+
+	
 
 	
 	

@@ -16,21 +16,15 @@
 
 </head>
 <body>
-
+<jsp:useBean id="LBC" class="java.util.ArrayList" scope="session"></jsp:useBean>
 	<div class="row">
-		<c:forEach items="${livresUsers}" var="livre" varStatus="vs">
+		<c:forEach items="${LBC}" var="livre" varStatus="vs">
 			<div class="col-xs-4">
-				<div class="thumbnail">
+				<div class="thumbnail" style="max-width: 230px; max-height: 230px">
 					<a href="#myModal${vs.index}" data-toggle="modal"> <img
 						src='<c:url value="/resources/images/image${livre.id}.jpeg"></c:url>'
 						style="max-width: 300px; max-height: 225px"></a>
-					<div class="rating rating2">
-
-						<a href="?id=${livre.id}&note=4" title="Noter à 4">★</a> <a
-							href="?id=${livre.id}&note=3" title="Noter à 3">★</a> <a
-							href="?id=${livre.id}&note=2" title="Noter à 2">★</a> <a
-							href="?id=${livre.id}&note=1" title="Noter à 1">★</a>
-					</div>
+					
 				</div>
 				<div id="myModal${vs.index}" class="modal fade">
 					<div class="modal-dialog">

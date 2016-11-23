@@ -25,17 +25,19 @@
 						src='<c:url value="/resources/images/image${livre.id}.jpeg"></c:url>'
 						style="max-width: 300px; max-height: 225px"></a>
 					<div class="rating rating2">
-
-						<a href="?id=${livre.id}&note=4" title="Noter à 4">★</a> <a
-							href="?id=${livre.id}&note=3" title="Noter à 3">★</a> <a
-							href="?id=${livre.id}&note=2" title="Noter à 2">★</a> <a
-							href="?id=${livre.id}&note=1" title="Noter à 1">★</a>
+						<a href="?id=${livre.id}&note=4" title="Noter à 4">★</a> 
+						<a href="?id=${livre.id}&note=3" title="Noter à 3">★</a>
+						<a href="?id=${livre.id}&note=2" title="Noter à 2">★</a> 
+						<a href="?id=${livre.id}&note=1" title="Noter à 1">★</a>
 					</div>
-					<input type="hidden" class="idLivre" value="${livre.id}"> <a
-						class="btn btn-success"
-						<%-- 						href="${pageContext.request.contextPath }/telecharger/${livre.id}" --%>
-						role="button"
-						onclick="doDejaTelecharger(${livre.id})">Telecharger</a>
+<%-- 					<input type="hidden" class="idLivre" value="${livre.id}">  --%>
+					<span class="label label-info">${livre.prix}€</span>
+<%-- 					<form action="${pageContext.request.contextPath }/telecharger/${livre.id}" method="post"> --%>
+<!-- 					<input type="submit" class="btn btn-success" value="Telecharger"> -->
+<!-- 					</form> -->
+					<a class="btn btn-success"  href="${pageContext.request.contextPath }/telecharger/${livre.id}"
+						role="button" onclick="telecharger(${livre.id})">Telecharger</a>
+
 				</div>
 				<div id="myModal${vs.index}" class="modal fade">
 					<div class="modal-dialog">
@@ -65,19 +67,19 @@
 	</div>
 
 	<script type="text/javascript">
-		function doDejaTelecharger(id) {
-			
-// 			je récupère la variable du modèle qui inquique que le livre est déja télécharger par luser
+	function telecharger(id) {
+		var r = confirm("Vous aller telecharger un livre !");
+	    if (r == true) {
+	    	window.location.href= "${pageContext.request.contextPath }/telecharger/"+id;
+	    	if("${deja_telecharger}"){
+	    		alert("vous avez deja telecharger le livre");
+	    	}
+	    } else {
+	    	window.location.href= "${pageContext.request.contextPath }/bookshare";
+	    }
+		
+	}
 
-			var ctx = "${pageContext.request.contextPath }/telecharger/"+id;
-			window.location.href=ctx;
-			var message = "${deja_telecharger}";
-			if(message){
-				alert("vous avez deja télécharger ce livre");
-				ctx="${pageContext.request.contextPath }/bookshare"
-				window.location.href=ctx;
-			}
-		}
 	</script>
 
 </body>
