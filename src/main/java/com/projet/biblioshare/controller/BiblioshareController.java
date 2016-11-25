@@ -217,7 +217,8 @@ public class BiblioshareController {
 
 		List<Utilisateur> listeAmis = utilisateurService.listerAmis(utilisateur);
 		List<Categorie> listeCategorie = categorieService.listerCategorie();
-		List<Utilisateur> lstUsers = utilisateurService.listUser();
+		List<Utilisateur> lstUsers = utilisateurService.listerNonAmis(utilisateur);
+		
 
 		// for(Utilisateur u:listeAmis){
 		// System.out.println("nom user "+u.getUsername());

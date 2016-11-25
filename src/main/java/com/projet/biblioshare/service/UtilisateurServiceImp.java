@@ -151,14 +151,6 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		return utilisateurDao.afficherNotification(utilisateur);
 	}
 
-
-	@Override
-	public int dejaAmis(Utilisateur utilisateur, int iduser2) {
-		// TODO Auto-generated method stub
-		return utilisateurDao.dejaAmis(utilisateur, iduser2);
-	}
-
-
 	@Override
 	public int demandeDejaEnvoyer(Utilisateur utilisateur, int iduser2) {
 		// TODO Auto-generated method stub
@@ -171,6 +163,13 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		// TODO Auto-generated method stub
 		return utilisateurDao.listerAmis(utilisateur);
 				
+	}
+
+
+	@Override
+	public List<Utilisateur> listerNonAmis(Utilisateur utilisateur) {
+		// TODO Auto-generated method stub
+		return utilisateurDao.listerUserPasAmis(utilisateur);
 	}
 	
 

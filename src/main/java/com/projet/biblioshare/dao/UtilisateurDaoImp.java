@@ -1,6 +1,7 @@
 package com.projet.biblioshare.dao;
 
 import java.lang.reflect.Array;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -99,6 +100,7 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 	@Override
 	public void telechargerLivre(Utilisateur utilisateur, int idLivre) {
 		Double debit = 0.0;
+		
 		try {
 
 			int idUser = utilisateur.getId();
@@ -129,15 +131,11 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 	 */
 	@Override
 	public int dejaTelechargerLivre(Utilisateur utilisateur, int idLivre) {
-		Livre livre = null;
 		int result = 0;
 
 		try {
 			// juste pour verifier si je récupère bien le bon livre
-			livre = em.find(Livre.class, idLivre);
-			System.out.println("identifiant " + livre.getId() + "editeur " + livre.getEditeur().getNom()
-					+ "description " + livre.getDescription() + " utilisateur " + utilisateur.getUsername());
-
+			
 			int idUser = utilisateur.getId();
 
 			Query query = em
@@ -145,7 +143,7 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 			query.setParameter("user", idUser);
 			query.setParameter("livre", idLivre);
 
-			result = ((Integer) query.getSingleResult()).intValue();
+			result = ((BigInteger) query.getSingleResult()).intValue();
 
 			if (result == 0) {
 				System.out.println("résultat retourné " + result);
@@ -278,6 +276,12 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 			query.setParameter(1, utilisateur.getId());
 			query.setParameter(2, IdUser);
 			query.executeUpdate();
+
+			Query query2 = em.createNativeQuery("INSERT INTO Amis values(?,?)");
+			query2.setParameter(1, IdUser);
+			query2.setParameter(2, utilisateur.getId());
+
+			query2.executeUpdate();
 			utilisateur.removeIdDemandeur(IdUser);
 			utilisateur.setNotification(utilisateur.getNotification() - 1);
 			em.merge(utilisateur);
@@ -319,35 +323,10 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 	}
 
 	@Override
-	public int dejaAmis(Utilisateur utilisateur, int iduser2) {
-		int results = 0;
-		try {
-			Query req = em.createNativeQuery(
-					"select count(*) from Amis where Utilisateur1 =:user1 and utilisateur2 =:user2 ");
-			req.setParameter("user1", utilisateur.getId());
-			req.setParameter("user2", iduser2);
-
-			results = ((Integer) req.getSingleResult()).intValue();
-			System.err.println(results + "/////////////////////////");
-			if (results == 0) {
-				return 1;
-			}
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-	@Override
 	public int demandeDejaEnvoyer(Utilisateur utilisateur, int iduser2) {
 
 		int result = 0;
 		int idUser = utilisateur.getId();
-		System.err.println(utilisateur.getNom()+"///////////");
-		System.err.println(idUser +"////////////////"+iduser2);
-
 		try {
 
 			Query query = em
@@ -356,7 +335,7 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 			query.setParameter("user", iduser2);
 
 			result = ((Number) query.getSingleResult()).intValue();
-			System.err.println(result+"///////////////////");
+
 			if (result == 0) {
 				System.out.println("résultat retourné " + result);
 				return 1;
@@ -366,7 +345,7 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e);
 			return 0;
 		}
 
@@ -397,6 +376,41 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 			return null;
 		}
 
+	}
+
+	@Override
+	public List<Utilisateur> listerUserPasAmis(Utilisateur utilisateur) {
+
+		try {
+			List<Integer> listNA = new ArrayList<Integer>();
+			List<Utilisateur> listUser = new ArrayList<Utilisateur>();
+			try {
+				Query req = em.createNativeQuery(
+						"select idUser from utilisateur where IdUser not in (select Utilisateur1 from Amis where Utilisateur2 = :user ) ");
+				req.setParameter("user", utilisateur.getId());
+
+				listNA = req.getResultList();
+
+				for (Integer i : listNA) {
+					if (i != utilisateur.getId()) {
+						listUser.add(em.find(Utilisateur.class, i));
+					}
+
+				}
+
+				return listUser;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listUser();
 	}
 
 }
