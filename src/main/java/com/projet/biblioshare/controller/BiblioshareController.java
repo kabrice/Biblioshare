@@ -1,4 +1,4 @@
- package com.projet.biblioshare.controller;
+package com.projet.biblioshare.controller;
 
 import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
@@ -33,9 +33,9 @@ public class BiblioshareController {
 
 	@Autowired
 	private ILivreService livreService;
-	
+
 	@Autowired
-	private ICategorieService categorieService ;
+	private ICategorieService categorieService;
 
 	/**
 	 * retourne la liste des utilisateurs
@@ -58,45 +58,44 @@ public class BiblioshareController {
 	}
 
 	@RequestMapping(value = "/telecharger/{id}", method = RequestMethod.GET)
-	public String telechargerLivre(Model model, Utilisateur utilisateur, HttpSession session, @PathVariable("id") int id) {
-		
+	public String telechargerLivre(Model model, Utilisateur utilisateur, HttpSession session,
+			@PathVariable("id") int id) {
+
 		utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 
 		int dejaTel = utilisateurService.dejaTelechargerLivre(utilisateur, id);
-		int testDebit=utilisateurService.verifierCredit(utilisateur, id);
-		
-		if(testDebit==0){
+		int testDebit = utilisateurService.verifierCredit(utilisateur, id);
+
+		if (testDebit == 0) {
 			session.setAttribute("credit_insuffisant", "vous n'avez plus assez d'argent pour achter un livre");
-			  return bookshare(model);
-		}
-		else{
+			return bookshare(model);
+		} else {
 			if (dejaTel == 0) {
 
 				session.setAttribute("deja_telecharger", "vous avez deja télécharger ce livre");
 				return "redirect:../bookshare";
 			} else {
-				//System.out.println("livre telecharger");
+				// System.out.println("livre telecharger");
 				utilisateurService.telechargerLivre(utilisateur, id);
-				//return showSuccess(model, session);
+				// return showSuccess(model, session);
 				return "redirect:../acceuil";
-				
+
 			}
 		}
-		
 
 	}
-	
-	
+
 	@RequestMapping(value = "/categorie/{id}", method = RequestMethod.GET)
-	public String trierLivreParCategorie(Model model, Utilisateur utilisateur, HttpSession session, @PathVariable("id") int id) {
-		
+	public String trierLivreParCategorie(Model model, Utilisateur utilisateur, HttpSession session,
+			@PathVariable("id") int id) {
+
 		utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-		
-		List<Livre> LBC=utilisateurService.showLivreByCategory(utilisateur, id);
-		model.addAttribute("LBC",LBC);
+
+		List<Livre> LBC = utilisateurService.showLivreByCategory(utilisateur, id);
+		model.addAttribute("LBC", LBC);
 		session.setAttribute("LBC", LBC);
-		for(Livre l: LBC){
-			System.out.println("identifiant "+l.getId()+ " libelle "+l.getLibelle());
+		for (Livre l : LBC) {
+			System.out.println("identifiant " + l.getId() + " libelle " + l.getLibelle());
 		}
 		return "redirect:../acceuil";
 	}
@@ -146,7 +145,7 @@ public class BiblioshareController {
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String showLogin(Model model, HttpSession session) {
 		System.out.println("inside login using GET method\n");
-		
+
 		if (session.getAttribute("utilisateur") == null) {
 			model.addAttribute("userData", new Utilisateur());
 			return "login";
@@ -213,19 +212,19 @@ public class BiblioshareController {
 		List<Livre> lstLivreUser = utilisateurService.afficherLivreUser(utilisateur);
 		// affiche le nombre des users
 		int nbLivreUser = utilisateurService.CountNbLivresUsers(utilisateur);
-		//int idCategorie=(Integer) session.getAttribute("idCategorie");
-		//liste des livres 
-		
-		List<Utilisateur> listeAmis=utilisateurService.listerAmis(utilisateur);
-		List<Categorie> listeCategorie=categorieService.listerCategorie();
-		List<Utilisateur> lstUsers=utilisateurService.listUser();
-		
-//		for(Utilisateur u:listeAmis){
-//			System.out.println("nom user "+u.getUsername());
-//		}
-//		
+		// int idCategorie=(Integer) session.getAttribute("idCategorie");
+		// liste des livres
+
+		List<Utilisateur> listeAmis = utilisateurService.listerAmis(utilisateur);
+		List<Categorie> listeCategorie = categorieService.listerCategorie();
+		List<Utilisateur> lstUsers = utilisateurService.listUser();
+
+		// for(Utilisateur u:listeAmis){
+		// System.out.println("nom user "+u.getUsername());
+		// }
+		//
 		model.addAttribute("listeAmis", listeAmis);
-		model.addAttribute("listeUtilisateur",lstUsers);
+		model.addAttribute("listeUtilisateur", lstUsers);
 		model.addAttribute("listeCategorie", listeCategorie);
 		model.addAttribute("livresUsers", lstLivreUser);
 		model.addAttribute("acceuil", new Utilisateur());
@@ -233,63 +232,56 @@ public class BiblioshareController {
 		return "acceuil";
 
 	}
-	
-	
 
 	@RequestMapping(value = "/bookshare", method = RequestMethod.GET)
-	public String bookshare( Model model) {
+	public String bookshare(Model model) {
 		// liste de tous les livres de la bibliothèque
-		List<Livre> nouveauteLivre=livreService.listerNouveauLivre();
+		List<Livre> nouveauteLivre = livreService.listerNouveauLivre();
 		List<Livre> listeLivre = this.livreService.listerLivre();
-		
+
 		model.addAttribute("listeLivres", listeLivre);
 		model.addAttribute("newLivres", nouveauteLivre);
 		return "bookstore";
 	}
-	
+
 	@RequestMapping(value = "/demande_amis/{idAmis}", method = RequestMethod.GET)
-	public String demandeAmis( Model model, Utilisateur utilisateur, HttpSession session,@PathVariable("idAmis") int idAmis) {
+	public String demandeAmis(Model model, Utilisateur utilisateur, HttpSession session,
+			@PathVariable("idAmis") int idAmis) {
 		utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-		int dejaDemander=utilisateurService.demandeDejaEnvoyer(utilisateur, idAmis);
-		System.err.println("//////////////////////////////////////////////");
-		System.err.println("valeur retourné "+dejaDemander);
-		if(dejaDemander==0){
+
+		int dejaDemander = utilisateurService.demandeDejaEnvoyer(utilisateur, idAmis);
+
+		if (dejaDemander == 0) {
 			model.addAttribute("deja_envoyer", "vous avez deja envoyer une demande a cet utilisateur");
 			return showSuccess(model, session);
-		}
-		else
-		{
-			utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-			Utilisateur recepteur =utilisateurService.rechercherUser(idAmis);
-			int id= recepteur.getId();
+		} else {
+			Utilisateur recepteur = utilisateurService.rechercherUser(idAmis);
+			int id = recepteur.getId();
 			Utilisateur demandeur = utilisateurService.demanderAmis(utilisateur, id);
-			
+
 			return "redirect:../acceuil";
 		}
-		
+
 	}
-	
+
 	@RequestMapping(value = "/mes_notification", method = RequestMethod.GET)
-	public String afficherNotification( Model model, Utilisateur utilisateur, HttpSession session) {
+	public String afficherNotification(Model model, Utilisateur utilisateur, HttpSession session) {
 		utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 
 		List<Utilisateur> demandeurs = utilisateurService.afficherNotification(utilisateur);
 		model.addAttribute("liste_demandes", demandeurs);
-		
+
 		return "notifications";
 	}
-	
+
 	@RequestMapping(value = "/ajouter_amis/{idAmis}", method = RequestMethod.GET)
-	public String accepterAmis( Model model, Utilisateur utilisateur, HttpSession session,@PathVariable("idAmis") int idAmis) {
+	public String accepterAmis(Model model, Utilisateur utilisateur, HttpSession session,
+			@PathVariable("idAmis") int idAmis) {
 		utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 		utilisateurService.accepterAmis(utilisateur, idAmis);
 		model.addAttribute("nouvel_amis", utilisateurService.rechercherUser(idAmis));
-		
+
 		return "redirect:../acceuil";
 	}
-	
-	
-	
-	
 
 }
