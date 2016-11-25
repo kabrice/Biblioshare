@@ -171,6 +171,13 @@ public class UtilisateurServiceImp implements IUtilisateurService{
 		// TODO Auto-generated method stub
 		return utilisateurDao.listerUserPasAmis(utilisateur);
 	}
+
+
+	@Override
+	public void refuseAmis(Utilisateur utilisateur, int IdUser) {
+		utilisateurDao.refuseAmis(utilisateur, IdUser);
+		
+	}
 	
 
 }

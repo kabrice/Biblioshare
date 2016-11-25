@@ -288,6 +288,18 @@
 								return true;
 							});
 		});
+		$(function() {
+			$('#refus')
+					.bind(
+							'click',
+							function() {
+								
+								var idAmis = $(this).attr("value"); // get selected value
+								window.location = "${pageContext.request.contextPath }/refuse_amis/"
+										+ idAmis;
+								return true;
+							});
+		});
 		
 		
 	</script>

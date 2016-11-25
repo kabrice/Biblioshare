@@ -29,6 +29,7 @@ public interface IUtilisateurDao {
 	public int demandeDejaEnvoyer(Utilisateur utilisateur,int iduser2);
 	public List<Utilisateur> listerAmis(Utilisateur utilisateur);
 	public List<Utilisateur> listerUserPasAmis(Utilisateur user);
+	public void refuseAmis(Utilisateur utilisateur,int IdUser);
 
 }
  

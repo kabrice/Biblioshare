@@ -28,4 +28,5 @@ public interface IUtilisateurService {
 	public int demandeDejaEnvoyer(Utilisateur utilisateur,int iduser2);
 	public List<Utilisateur> listerAmis(Utilisateur utilisateur);
 	public List<Utilisateur> listerNonAmis(Utilisateur utilisateur);
+	public void refuseAmis(Utilisateur utilisateur,int IdUser);
 }

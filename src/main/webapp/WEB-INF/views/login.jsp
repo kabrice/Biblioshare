@@ -67,7 +67,7 @@
 							<c:url var="loginUrl" value="/login" />
 							<f:form modelAttribute="userData" action="register" method="post"
 								class="form-horizontal">
-									<c:if test="${var_username != null}">
+								<c:if test="${var_username != null}">
 									<div class="alert alert-danger">
 										<p>Invalid username deja utilisé.</p>
 									</div>
@@ -85,7 +85,7 @@
 										class="fa fa-font"></i></label>
 									<f:input type="text" class="form-control" id="nom" path="nom"
 										placeholder="Enter Name" />
-									<f:errors path="nom" cssStyle="color:red;" />	
+									<f:errors path="nom" cssStyle="color:red;" />
 								</div>
 
 								<div class="input-group input-sm">
@@ -93,7 +93,7 @@
 										class="fa fa-font"></i></label>
 									<f:input type="text" class="form-control" id="prenom"
 										path="prenom" placeholder="Enter Subname" />
-									<f:errors path="prenom" cssStyle="color:red;" />	
+									<f:errors path="prenom" cssStyle="color:red;" />
 								</div>
 
 
@@ -103,25 +103,28 @@
 										class="fa fa-envelope"></i></label>
 									<f:input type="text" class="form-control" id="email"
 										path="email" placeholder="Enter email" />
-									<f:errors path="email" cssStyle="color:red;" />	
+									<f:errors path="email" cssStyle="color:red;" />
 								</div>
 
 								<f:input type="hidden" class="form-control" id="credit"
-										path="credit" value="100.00"/>
+									path="credit" value="100.00" />
+								<f:input type="hidden" class="form-control" id="notification"
+									path="notification" value="0" />
 								<div class="input-group input-sm">
 									<label class="input-group-addon" for="password"><i
 										class="fa fa-lock"></i></label>
 									<f:input type="password" class="form-control" id="password"
 										path="password" placeholder="Enter Password" />
-									<f:errors path="password" cssStyle="color:red;" />	
+									<f:errors path="password" cssStyle="color:red;" />
 								</div>
-								
+
 								<div class="input-group input-sm">
 									<label class="input-group-addon" for="passwordConfirm"><i
 										class="fa fa-lock"></i></label>
-									<f:input type="password" class="form-control" id="passwordConfirm"
-										path="passwordConfirm" placeholder="Enter Password Confirm" />
-									<f:errors path="passwordConfirm" cssStyle="color:red;" />	
+									<f:input type="password" class="form-control"
+										id="passwordConfirm" path="passwordConfirm"
+										placeholder="Enter Password Confirm" />
+									<f:errors path="passwordConfirm" cssStyle="color:red;" />
 								</div>
 
 								<div class="form-actions">

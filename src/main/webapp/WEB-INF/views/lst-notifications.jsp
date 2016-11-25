@@ -39,7 +39,7 @@
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
 					<button id="ajout" type="button" class="btn btn-success btn-sm" value="${user.id}">Accepter</button>
-					<button type="button" class="btn btn-danger btn-sm">Refuser</button>
+					<button id="refus" type="button" class="btn btn-danger btn-sm" value="${user.id }">Refuser</button>
 				</div>
 				<!-- END SIDEBAR BUTTONS -->
 				

@@ -284,5 +284,15 @@ public class BiblioshareController {
 
 		return "redirect:../acceuil";
 	}
+	@RequestMapping(value = "/refuse_amis/{idAmis}", method = RequestMethod.GET)
+	public String refuseAmis(Model model, Utilisateur utilisateur, HttpSession session,
+			@PathVariable("idAmis") int idAmis) {
+		utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+		utilisateurService.refuseAmis(utilisateur, idAmis);
+		model.addAttribute("nouvel_amis", utilisateurService.rechercherUser(idAmis));
+
+		return "redirect:../acceuil";
+	}
+	
 
 }

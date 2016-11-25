@@ -413,4 +413,12 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 		return listUser();
 	}
 
+	@Override
+	public void refuseAmis(Utilisateur utilisateur, int IdUser) {
+		utilisateur.removeIdDemandeur(IdUser);
+		utilisateur.setNotification(utilisateur.getNotification() - 1);
+		em.merge(utilisateur);
+		em.flush();
+	}
+
 }
