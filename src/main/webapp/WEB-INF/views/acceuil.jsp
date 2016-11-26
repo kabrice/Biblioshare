@@ -10,12 +10,10 @@
 	href="<c:url value='/resources/bootstrap/css/bootstrap.min.css' />"
 	rel="stylesheet"></link>
 
-<link href="<c:url value='/resources/css/index.css' />" rel="stylesheet"></link>
-
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
-
+<link href="<c:url value='/resources/css/index.css' />" rel="stylesheet"></link>
 
 </head>
 <body>
