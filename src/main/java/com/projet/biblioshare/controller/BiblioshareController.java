@@ -119,13 +119,12 @@ public class BiblioshareController {
 		if (br.hasErrors()) {
 			return "login";
 		} else {
-			// cette methode enregistre un nouvel utilisateur l'utilisateur avec
-			// username inique
 			int is = utilisateurService.checkUserName(utilisateur);
 			if (is == 1) {
 				utilisateurService.addUser(utilisateur);
-				session.setAttribute("utilisateur", utilisateur);
-				return "redirect:acceuil";
+				//session.setAttribute("utilisateur", utilisateur);
+				model.addAttribute("connection", "Connnecter vous");
+				return "redirect:login";
 			} else {
 				model.addAttribute("var_username", "nom d'utilisateur existant");
 				return "login";
