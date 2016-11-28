@@ -10,11 +10,11 @@
 	href="<c:url value='/resources/bootstrap/css/bootstrap.min.css' />"
 	rel="stylesheet"></link>
 
+<link href="<c:url value='/resources/css/index.css' />" rel="stylesheet"></link>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
-<link href="<c:url value='/resources/css/index.css' />" rel="stylesheet"></link>
-
 </head>
 <body>
 	<div class="container-fluide">
@@ -81,7 +81,7 @@
 		</div>
 		<div class="row">
 			<div class="row">
-				<div class="col-sm-2 col-md-2">
+				<div class="col-sm-3 col-md-3">
 					<div class="panel-group" id="accordion">
 						<div class="panel panel-default">
 							<div class="panel-heading">
@@ -126,7 +126,6 @@
 							<div id="collapseTwo" class="panel-collapse collapse">
 								<div class="panel-body">
 									<table class="table">
-										<table class="table">
 										<tr>
 											<td><a href="${pageContext.request.contextPath }/emprunte">Emprunt</a> <span
 												class="label label-success">$ 320</span></td>
@@ -176,157 +175,53 @@
 
 					</div>
 				</div>
-				<div class="col-sm-8 col-md-8">
-					<div class="well">
+				<div class="col-sm-9 col-md-9">
+<p> liste des livres empruntés tototo tototo tototo </p>
 
-						<c:if
-							test="${not fn:endsWith(pageContext.request.requestURI, '/acceuil')}">
-							<a href="${pageContext.request.contextPath }/bookshare">Bookshare</a>
-							<jsp:include page="livres-users.jsp"></jsp:include>
-						</c:if>
-
-					</div>
-					<div class="well">
-
-						<ul class="nav nav-tabs">
-							<li class="active"><a data-toggle="tab" href="#home">CATEGORY</a></li>
-							<li><a data-toggle="tab" href="#menu1">AUTEUR</a></li>
-							<li><a data-toggle="tab" href="#menu2">EDITEUR</a></li>
-							<li><a data-toggle="tab" href="#menu3">COLLECTION</a></li>
-							<li><a data-toggle="tab" href="#menu4">UTILISATEURS</a></li>
-						</ul>
-
-						<div class="tab-content">
-							<div id="home" class="tab-pane fade in active">
-								<div class="col-sm-1 col-md-1">
-									<form action="" method="post">
-										<select name='categorie' class="selectpicker"
-											data-live-search="true" id="categorieLivre">
-											<option value="Categorie" data-tokens="Categorie">Liste
-												Categorie</option>
-											<c:forEach items="${listeCategorie}" var="categorie">
-
-												<option value="${categorie.id}"
-													data-tokens="${categorie.libelle}">${categorie.libelle}</option>
-
-											</c:forEach>
-										</select>
-
-									</form>
-								</div>
-
-
-								<jsp:include page="livre-user-categorie.jsp"></jsp:include>
-
-
-								<h3>HOME</h3>
-
+<jsp:useBean id="listeLivreEmpruntes" class="java.util.ArrayList" scope="session"></jsp:useBean>
+	<div class="row">
+		<c:forEach items="${listeLivreEmpruntes}" var="livre" varStatus="test">
+			<div class="col-xs-4">
+				<div class="thumbnail" style="max-width: 230px; max-height: 230px">
+					<a href="#myModal${test.index}" data-toggle="modal"> <img
+						src='<c:url value="/resources/images/image${livre.getLivre().getId()}.jpeg"></c:url>'
+						style="max-width: 300px; max-height: 225px"></a>
+				</div>
+				<div id="myModal${test.index}" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title">Informations sur le livre</h4>
 							</div>
-							<div id="menu1" class="tab-pane fade">
-								<h3>Menu 1</h3>
-								<p>Ut enim ad minim veniam, quis nostrud exercitation
-									ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<div class="modal-body">
+								<p>Ce livre a été Emprunté par :</p>
+								<p class="text-warning">
+									<small>${livre.getLivre().getDescription()}</small>
+								</p>
 							</div>
-							<div id="menu2" class="tab-pane fade">
-								<h3>Menu 2</h3>
-								<p>Sed ut perspiciatis unde omnis iste natus error sit
-									voluptatem accusantium doloremque laudantium, totam rem
-									aperiam.</p>
-							</div>
-							<div id="menu3" class="tab-pane fade">
-								<h3>Menu 3</h3>
-								<p>Eaque ipsa quae ab illo inventore veritatis et quasi
-									architecto beatae vitae dicta sunt explicabo.</p>
-
-							</div>
-
-							<div id="menu4" class="tab-pane fade">
-								<c:if test="${deja_envoyer != null}">
-									<div class="alert alert-danger">${deja_envoyer}</div>
-								</c:if>
-
-
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Close</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-2 col-md-2">
-					<div class="well">
-						<form action="" method="post">
-							<select name='utilisateurs' class="selectpicker"
-								data-live-search="true" id="utilisateurs">
-								<option value="utilisateur" data-tokens="Utilisateurs">Liste
-									Utilisateurs</option>
-								<c:forEach items="${listeUtilisateur}" var="listeUser">
-
-									<option value="${listeUser.id}"
-										data-tokens="${listeUser.username}">${listeUser.username}</option>
-
-								</c:forEach>
-							</select>
-
-						</form>
-						<ul>
-							<c:forEach items="${listeAmis}" var="listeAmis">
-<!-- 							Lilian à défénir des que marcelin fini pour afficher le profil -->
-								<li><a href="#"> ${listeAmis.username} </a></li>
-							</c:forEach>
-						</ul>
-					</div>
+			</div>
+		</c:forEach>
+	</div>
+<p>Petit test test test test test </p>
 				</div>
-
-				<div></div>
 			</div>
 		</div>
 	</div>
-
-
+	
 	<script type="text/javascript"
 		src="<c:url value="/resources/js/jquery-3.1.1.js" />"></script>
 	<script type="text/javascript"
 		src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
-
-	<script type="text/javascript"
-		src="<c:url value="/resources/js/modal.js" />"></script>
-
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
-
-	<!-- (Optional) Latest compiled and minified JavaScript translation files -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/i18n/defaults-*.min.js"></script>
-
-
-	<script type="text/javascript">
-		$(function() {
-			$('#categorieLivre')
-					.bind(
-							'change',
-							function() {
-								var idCateg = $(this).val(); // get selected value
-								window.location = "${pageContext.request.contextPath }/categorie/"
-										+ idCateg;
-
-								return true;
-							});
-		});
-
-		$(function() {
-			$('#utilisateurs')
-					.bind(
-							'change',
-							function() {
-								var idUser = $(this).val(); // get selected value
-								window.location = "${pageContext.request.contextPath }/demande_amis/"
-										+ idUser;
-
-								return true;
-							});
-		});
-	</script>
-
-
+		
+<script type="text/javascript" src="<c:url value="/resources/js/modal.js" />"></script>	
 </body>
 </html>

@@ -10,6 +10,14 @@
 		notre projet ainsi que leur dependeces -->
 
 	<!-- Classe utilisateur service et dao -->
+	
+	
+	<bean id="activitelivreamiDao" class="com.projet.biblioshare.dao.ActivitelivreamiDaoImp">
+	</bean>
+	<bean id="activitelivreamiService" class="com.projet.biblioshare.service.ActivitelivreamiServiceImp">
+		<property name="activitelivreamiDao" ref="activitelivreamiDao"></property>
+	</bean>
+	
 	<bean id="utilisateurDao" class="com.projet.biblioshare.dao.UtilisateurDaoImp">
 	</bean>
 	<bean id="utilisateurService" class="com.projet.biblioshare.service.UtilisateurServiceImp">

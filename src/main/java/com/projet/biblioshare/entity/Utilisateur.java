@@ -1,5 +1,6 @@
 package com.projet.biblioshare.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -66,6 +68,10 @@ public class Utilisateur {
 	@Column(name="Notification")
 	private int notification;
 	
+	@Column(name="ImageProfil")
+	private String imageprofil;
+
+
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="Demandes", joinColumns=@JoinColumn(name="IdUser"))
 	@Column(name="Demande")
@@ -79,7 +85,12 @@ public class Utilisateur {
 	            inverseJoinColumns =
 	                @JoinColumn(name = "Utilisateur2", referencedColumnName = "IdUser"))
 	    private List<Utilisateur> users;
-	
+	 
+	@OneToMany(mappedBy="utilisateur1", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<ActiviteLivreAmi> activitelivreamis1 = new ArrayList<ActiviteLivreAmi>();
+		
+	@OneToMany(mappedBy="utilisateur2", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<ActiviteLivreAmi> activitelivreamis2 = new ArrayList<ActiviteLivreAmi>();
 	 
 	public Utilisateur(String nom, String prenom, String email, String password) {
 		super();
@@ -98,9 +109,36 @@ public class Utilisateur {
 		super();
 	}
 	//Getters and setters
+	
+	public String getImageprofil() {
+		return imageprofil;
+	}
+
+	public void setImageprofil(String imageprofil) {
+		this.imageprofil = imageprofil;
+	}
+	
 	public int getId() {
 		return id;
 	}
+	public List<ActiviteLivreAmi> getActivitelivreamis1() {
+		return activitelivreamis1;
+	}
+
+	public void setActivitelivreamis1(List<ActiviteLivreAmi> activitelivreamis1) {
+		this.activitelivreamis1 = activitelivreamis1;
+	}
+
+
+	public List<ActiviteLivreAmi> getActivitelivreamis2() {
+		return activitelivreamis2;
+	}
+
+	public void setActivitelivreamis2(List<ActiviteLivreAmi> activitelivreamis2) {
+		this.activitelivreamis2 = activitelivreamis2;
+	}
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
