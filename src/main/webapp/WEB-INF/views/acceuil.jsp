@@ -258,7 +258,8 @@
 									Utilisateurs</option>
 								<c:forEach items="${listeUtilisateur}" var="listeUser">
 
-									<option value="${listeUser.id}"	data-tokens="${listeUser.username}">${listeUser.username}</option>
+									<option value="${listeUser.id}"
+										data-tokens="${listeUser.username}">${listeUser.username}</option>
 
 								</c:forEach>
 							</select>
@@ -266,7 +267,8 @@
 						</form>
 						<ul>
 							<c:forEach items="${listeAmis}" var="listeAmis">
-								<li>${listeAmis.username}</li>
+<!-- 							Lilian à défénir des que marcelin fini pour afficher le profil -->
+								<li><a href="#"> ${listeAmis.username} </a></li>
 							</c:forEach>
 						</ul>
 					</div>
