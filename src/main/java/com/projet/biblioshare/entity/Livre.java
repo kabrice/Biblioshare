@@ -1,8 +1,11 @@
 package com.projet.biblioshare.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -59,12 +63,34 @@ public class Livre {
 	@JoinColumn(name="IdCollection")
 	private Collection collection;
 	
+	
+	@OneToMany(mappedBy="livre",cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<ActiviteLivreAmi> activitelivreamis = new ArrayList<ActiviteLivreAmi>();
+
+	public Livre(List<ActiviteLivreAmi> activitelivreamis) {
+		super();
+		this.activitelivreamis = activitelivreamis;
+	}
+	
+	public Livre(int idLivre) {
+		super();
+		this.id = idLivre;
+	}
 	// getters and setters
+	
+
+	public List<ActiviteLivreAmi> getActivitelivreamis() {
+		return activitelivreamis;
+	}
+
+	public void setActivitelivreamis(List<ActiviteLivreAmi> activitelivreamis) {
+		this.activitelivreamis = activitelivreamis;
+	}
 	
 	public String getDescription() {
 		return description;
 	}
-
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}

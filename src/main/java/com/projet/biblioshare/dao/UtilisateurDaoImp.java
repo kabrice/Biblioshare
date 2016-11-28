@@ -265,7 +265,6 @@ public class UtilisateurDaoImp implements IUtilisateurDao {
 			e.printStackTrace();
 		}
 		return utilisateur;
-
 	}
 
 	@Override
