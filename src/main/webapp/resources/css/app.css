@@ -1,24 +1,16 @@
 
 html{
-	background-color:#2F2F2F;
+
 }
 
-body, #logginWrapper {
+body {
 	height: 100%;
-	background-image: -webkit-gradient(
-	linear,
-	right bottom,
-	right top,
-	color-stop(0, #EDEDED),
-	color-stop(0.08, #EAEAEA),
-	color-stop(1, #2F2F2F),
-	color-stop(1, #AAAAAA)
-);
-background-image: -o-linear-gradient(top, #EDEDED 0%, #EAEAEA 8%, #2F2F2F 100%, #AAAAAA 100%);
-background-image: -moz-linear-gradient(top, #EDEDED 0%, #EAEAEA 8%, #2F2F2F 100%, #AAAAAA 100%);
-background-image: -webkit-linear-gradient(top, #EDEDED 0%, #EAEAEA 8%, #2F2F2F 100%, #AAAAAA 100%);
-background-image: -ms-linear-gradient(top, #EDEDED 0%, #EAEAEA 8%, #2F2F2F 100%, #AAAAAA 100%);
-background-image: linear-gradient(to top, #EDEDED 0%, #EAEAEA 8%, #2F2F2F 100%, #AAAAAA 100%);
+	background: url("../images/lib1.jpeg") no-repeat center center fixed ;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	 background-size:cover;
+
 }
 
 body, #logginWrapper, .form-control{
@@ -35,8 +27,7 @@ body, #logginWrapper, .form-control{
 
 .login-container {
     margin-top: 100px;
-    background-color: floralwhite;
-    
+  
     position: absolute;
 }
 
@@ -46,4 +37,15 @@ body, #logginWrapper, .form-control{
 }
 .login-form {
     padding: 10%;
+}
+
+#welcome{
+	text-align: center;
+	background-color: none;
+	
+}
+
+.jumbotron{
+	background: transparent;
+	color: white;
 }
